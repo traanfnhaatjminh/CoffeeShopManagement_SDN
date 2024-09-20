@@ -18,7 +18,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Loginnnnn</h1>
+      <h1>Login</h1>
       <input 
         type="text" 
         placeholder="Username" 
