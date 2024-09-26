@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import UserList from './page/shopowner/userlist'
+import Layout from './page/shopowner/layout'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <UserList />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/admin/userlist" element={<Layout />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
