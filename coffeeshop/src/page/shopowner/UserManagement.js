@@ -23,7 +23,7 @@ export default function UserManagement({ showModal, setShowModal, setShowEditMod
   };
 
   return (
-    <div>
+    <div className='p-4'>
       <div className="items-center justify-between">
         <h1 className="text-2xl font-bold">User Management</h1>
         <button className="bg-green-500 text-white px-4 py-2 rounded-lg" onClick={() => setShowModal(true)}>

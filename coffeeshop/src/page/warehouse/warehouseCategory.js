@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaPen, FaTrash, FaPlus } from 'react-icons/fa';
-import Sidebar from './sidebar';
-import Navbar from './navbar';
+import Sidebar from '../../components/common/sidebar';
+import Header from '../../components/common/header';
 
 const data = [
   { id: 1, categoryId: '1', groupName: 'Cà phê', categoryName: 'Cà phê highlight', des: 'Ngon lắm, cà phê đẹp' },
@@ -16,10 +16,12 @@ const data = [
 
 function WarehouseCategory() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      <div className="flex flex-1">
-        <Sidebar />
+    <div className="flex min-h-screen bg-gray-100">
+
+      <Sidebar />
+      <div className="flex-1">
+        <Header />
+
         <div className="flex-1 p-4">
           <div className="mb-4 flex items-center justify-between">
             <h1 className="text-lg font-bold px-2 font-lauren  bg-brown-900 text-white border border-brown-400 rounded-lg">

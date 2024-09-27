@@ -12,7 +12,9 @@ function Sidebar() {
         <img src="logo.png" alt="Logo" className="w-8 h-8 mr-2" />
         <div className="abc">
           <FaHome className="w-6 h-6 mb-1 text-gray-700" />
-          <span className="text-sm text-gray-700 font-lauren font-semibold">Home</span>
+          <Link to="/">
+            <span className="text-sm text-gray-700 font-lauren font-semibold">Home</span>
+          </Link>
         </div>
         <div className="abc">
           <FaWarehouse className="w-6 h-6 mb-1 text-gray-700" />
@@ -22,11 +24,16 @@ function Sidebar() {
         </div>
         <div className="abc">
           <MdCategory className="w-6 h-6 mb-1 text-gray-700" />
-          <span className="text-sm text-gray-700 font-lauren font-semibold">Categories</span>
+
+          <Link to="/warehouse/categories">
+            <span className="text-sm text-gray-700 font-lauren font-semibold">Categories</span>
+          </Link>
         </div>
         <div className="abc">
           <FaThList className="w-6 h-6 mb-1 text-gray-700" />
-          <span className="text-sm text-gray-700 font-lauren font-semibold">TableList</span>
+          <Link to="/waiter">
+            <span className="text-sm text-gray-700 font-lauren font-semibold">Table List</span>
+          </Link>
         </div>
         <div className="abc">
           <MdListAlt className="w-6 h-6 mb-1 text-gray-700" />
@@ -42,7 +49,9 @@ function Sidebar() {
         </div>
         <div className="abc">
           <IoIosSettings className="w-6 h-6 mb-1 text-gray-700" />
-          <span className="text-sm text-gray-700 font-lauren font-semibold">Setting</span>
+          <Link to="/admin/userlist">
+            <span className="text-sm text-gray-700 font-lauren font-semibold">Setting</span>
+          </Link>
         </div>
       </aside>
     </div>

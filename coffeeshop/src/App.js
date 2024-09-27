@@ -11,6 +11,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Layout from './page/shopowner/layout';
 import CashierScreen from './page/cashier/CashierScreen';
+import Waiter from './page/waiter/layout';
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
         <Route path="/" element={<CashierScreen />} />
         <Route path="/warehouse/categories" element={<WarehouseCategory />} />
         <Route path="/warehouse/products" element={<WarehouseProduct />} />
-
+        <Route path='/waiter' element={<Waiter />} />
         <Route path="/admin/userlist" element={<Layout />} />
       </Routes>
     </BrowserRouter>
