@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import UserList from './page/shopowner/userlist'
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import WarehouseProduct from './page/warehouse/warehouseProduct';
+import WarehouseCategory from './page/warehouse/warehouseCategory';
 
 function App() {
-
   return (
-    <UserList />
+    <BrowserRouter>
+   
+      <Routes>
+        <Route path="/warehouse/categories" element={<WarehouseCategory />} />
+        <Route path="/warehouse/products" element={<WarehouseProduct />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
