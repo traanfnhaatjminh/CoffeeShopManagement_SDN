@@ -1,38 +1,34 @@
-import React, { useState, useEffect, useRef } from "react";
-import "./style.css";
-import Sidebar from "../../components/common/sidebar";
-import Header from "../../components/common/header";
-import { IoSearch } from "react-icons/io5";
+import React, { useState, useEffect, useRef } from 'react';
+import './style.css';
+import Sidebar from '../../components/common/sidebar';
+import Header from '../../components/common/header';
+import { IoSearch } from 'react-icons/io5';
 
 const people = [
-  "Dries Vincent",
-  "Leslie Alexander",
-  "Michael Foster",
-  "Lindsay Walton",
-  "Courtney Henry",
-  "Tom Cook",
-  "Whitney Francis",
+  'Dries Vincent',
+  'Leslie Alexander',
+  'Michael Foster',
+  'Lindsay Walton',
+  'Courtney Henry',
+  'Tom Cook',
+  'Whitney Francis',
 ];
 const tables = [
-  { id: 1, status: "available" },
-  { id: 2, status: "occupied" },
-  { id: 3, status: "available" },
-  { id: 4, status: "occupied" },
-  { id: 5, status: "available" },
+  { id: 1, status: 'available' },
+  { id: 2, status: 'occupied' },
+  { id: 3, status: 'available' },
+  { id: 4, status: 'occupied' },
+  { id: 5, status: 'available' },
 ];
 export default function CashierScreen() {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
+  const [selected, setSelected] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
   const [filteredPeople, setFilteredPeople] = useState(people);
   const inputRef = useRef(null);
 
   useEffect(() => {
-    setFilteredPeople(
-      people.filter((person) =>
-        person.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    );
+    setFilteredPeople(people.filter((person) => person.toLowerCase().includes(searchTerm.toLowerCase())));
   }, [searchTerm]);
 
   useEffect(() => {
@@ -42,11 +38,11 @@ export default function CashierScreen() {
   }, [isOpen]);
   return (
     <div className="flex min-h-screen bg-gray-100">
-      <Sidebar/>
+      <Sidebar />
 
       {/* Main content */}
       <main className="flex-1 ">
-      <Header/>
+        <Header />
         {/* Header */}
         {/* <header className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">Menu</h1>
@@ -132,7 +128,7 @@ export default function CashierScreen() {
               Minh
             </span>
             {/* <button className="bg-gray-300 text-gray-700 py-1 px-4 rounded"> */}
-            {/* <svg
+        {/* <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
@@ -163,118 +159,72 @@ export default function CashierScreen() {
 
         {/* Menu and Cart */}
         <div className="flex space-x-6 p-4">
-        
           {/* Menu Section */}
           <section className="flex-1">
             <div className="flex">
               <h2 className="text-lg font-bold flex-1">Menu</h2>
               <div className=" relative flex flex-1 justify-end">
-              <input
-                ref={inputRef}
-                type="text"
-                className="relative w-2/3
+                <input
+                  ref={inputRef}
+                  type="text"
+                  className="relative w-2/3
                    bg-white border border-gray-300 rounded-md pl-3 pr-10 py-2 text-left cursor-default focus-within:outline-none focus-within:ring-1 focus-within:ring-indigo-500 focus-within:border-indigo-500 sm:text-sm"
-                placeholder={selected}
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onFocus={() => setIsOpen(true)}
-                onBlur={() => setTimeout(() => setIsOpen(false), 200)}
-                onClick={() => setIsOpen(true)}
-              />
-              <span className="absolute inset-y-0 right-0 flex items-center pr-2 ">
-              <IoSearch />
-              </span>
+                  placeholder={selected}
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onFocus={() => setIsOpen(true)}
+                  onBlur={() => setTimeout(() => setIsOpen(false), 200)}
+                  onClick={() => setIsOpen(true)}
+                />
+                <span className="absolute inset-y-0 right-0 flex items-center pr-2 ">
+                  <IoSearch />
+                </span>
+              </div>
             </div>
-
-           
-        
-            </div>
-
-
 
             <div className="grid grid-cols-5 gap-4 mb-6 mt-3">
-              <button className="btn-categories">
-                Cà phê highlight
-              </button>
-              <button className="btn-categories">
-                Cà phê Việt Nam
-              </button>
-              <button className="btn-categories">
-                Cà phê máy
-              </button>
-              <button className="btn-categories">
-                Cold brew
-              </button>
-              <button className="btn-categories">
-                Trà trái cây
-              </button>
-              <button className="btn-categories">
-                Hi-tea
-              </button>
-              <button className="btn-categories">
-                Trà xanh tây bắc
-              </button>
-              <button className="btn-categories">
-                Chocolate
-              </button>
+              <button className="btn-categories">Cà phê highlight</button>
+              <button className="btn-categories">Cà phê Việt Nam</button>
+              <button className="btn-categories">Cà phê máy</button>
+              <button className="btn-categories">Cold brew</button>
+              <button className="btn-categories">Trà trái cây</button>
+              <button className="btn-categories">Hi-tea</button>
+              <button className="btn-categories">Trà xanh tây bắc</button>
+              <button className="btn-categories">Chocolate</button>
             </div>
 
             {/* Drinks List */}
             <div className="grid grid-cols-5 gap-4">
               {/* Drink 1 */}
               <div className="bg-white rounded-lg shadow p-4">
-                <img
-                  src="https://via.placeholder.com/150"
-                  alt="Trà Xanh Espresso Marble"
-                  className="mb-4 rounded"
-                />
+                <img src="https://via.placeholder.com/150" alt="Trà Xanh Espresso Marble" className="mb-4 rounded" />
                 <h3 className="text-items">Trà Xanh Espresso Marble</h3>
                 <p className="text-price">49,000.0 VND</p>
               </div>
               {/* Drink 2 */}
               <div className="bg-white rounded-lg shadow p-4">
-                <img
-                  src="https://via.placeholder.com/150"
-                  alt="Bơ Arabica"
-                  className="mb-4 rounded"
-                />
+                <img src="https://via.placeholder.com/150" alt="Bơ Arabica" className="mb-4 rounded" />
                 <h3 className="text-items">Bơ Arabica</h3>
                 <p className="text-price">49,000.0 VND</p>
               </div>
               {/* Drink 3 */}
               <div className="bg-white rounded-lg shadow p-4">
-                <img
-                  src="https://via.placeholder.com/150"
-                  alt="Đường Đen Sữa Đá"
-                  className="mb-4 rounded"
-                />
+                <img src="https://via.placeholder.com/150" alt="Đường Đen Sữa Đá" className="mb-4 rounded" />
                 <h3 className="text-items">Đường Đen Sữa Đá</h3>
                 <p className="text-price">45,000.0 VND</p>
               </div>
               <div className="bg-white rounded-lg shadow p-4">
-                <img
-                  src="https://via.placeholder.com/150"
-                  alt="Đường Đen Sữa Đá"
-                  className="mb-4 rounded"
-                />
+                <img src="https://via.placeholder.com/150" alt="Đường Đen Sữa Đá" className="mb-4 rounded" />
                 <h3 className="text-items">Đường Đen Sữa Đá</h3>
                 <p className="text-price">45,000.0 VND</p>
               </div>
               <div className="bg-white rounded-lg shadow p-4">
-                <img
-                  src="https://via.placeholder.com/150"
-                  alt="Đường Đen Sữa Đá"
-                  className="mb-4 rounded"
-                />
+                <img src="https://via.placeholder.com/150" alt="Đường Đen Sữa Đá" className="mb-4 rounded" />
                 <h3 className="text-items">Đường Đen Sữa Đá</h3>
                 <p className="text-price">45,000.0 VND</p>
               </div>
               <div className="bg-white rounded-lg shadow p-4">
-                <img
-                  src="https://via.placeholder.com/150"
-                  alt="Đường Đen Sữa Đá"
-                  className="mb-4 rounded"
-                />
+                <img src="https://via.placeholder.com/150" alt="Đường Đen Sữa Đá" className="mb-4 rounded" />
                 <h3 className="text-items">Đường Đen Sữa Đá</h3>
                 <p className="text-price">45,000.0 VND</p>
               </div>
@@ -311,12 +261,7 @@ export default function CashierScreen() {
 
             <div className="grid grid-cols-5 gap-2">
               {tables.map((table) => (
-                <div
-                  key={table.id}
-                  className={`table ${
-                    table.status === "available" ? "available" : "occupied"
-                  }`}
-                >
+                <div key={table.id} className={`table ${table.status === 'available' ? 'available' : 'occupied'}`}>
                   <span> {table.id}</span>
                   <br />
                 </div>
