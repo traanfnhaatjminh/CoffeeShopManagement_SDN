@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./style.css";
 import Sidebar from "../../components/common/sidebar";
-import Header from "../../components/common/Header";
+import Header from "../../components/common/header";
 import { IoSearch } from "react-icons/io5";
 
 const people = [
