@@ -11,7 +11,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Layout from './page/shopowner/layout';
 import CashierScreen from './page/cashier/CashierScreen';
-import Waiter from './page/waiter/layout';
+import Waiter from './page/cashier/layout';
 
 function App() {
   return (
