@@ -17,18 +17,17 @@ function Layout() {
 
       {/* Main Content */}
       <div className="flex-1 p-4">
-        <UserManagement showModal={showModal} setShowModal={setShowModal}
-          setShowEditModal={setShowEditModal} setCurrentUser={setCurrentUser} />
+        <UserManagement
+          showModal={showModal}
+          setShowModal={setShowModal}
+          setShowEditModal={setShowEditModal}
+          setCurrentUser={setCurrentUser}
+        />
       </div>
 
       {/* Modal để thêm người dùng */}
       {showModal && <AddUserModal closeModal={() => setShowModal(false)} />}
-      {showEditModal && (
-        <EditUserModal
-          user={currentUser}
-          closeModal={() => setShowEditModal(false)}
-        />
-      )}
+      {showEditModal && <EditUserModal user={currentUser} closeModal={() => setShowEditModal(false)} />}
     </div>
   );
 }
