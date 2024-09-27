@@ -1,8 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
       colors: {
@@ -18,21 +16,17 @@ module.exports = {
           800: '#846358',
           900: '#43302b',
         },
-        orange:{
-          300:'#fdba74'
+        orange: {
+          300: '#fdba74',
         },
-        green:{
-
-        },
-        teal:{
-
-        }
+        green: {},
+        teal: {},
       },
-      fontFamily:{
-        'pacifico': ["Pacifico", "cursive"],
-        'lauren':["McLaren", "sans-serif"],
-      }
+      fontFamily: {
+        pacifico: ['Pacifico', 'cursive'],
+        lauren: ['McLaren', 'sans-serif'],
+      },
     },
   },
   plugins: [],
-}
+};
