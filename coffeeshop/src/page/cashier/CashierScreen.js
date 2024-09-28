@@ -162,8 +162,8 @@ export default function CashierScreen() {
           {/* Menu Section */}
           <section className="flex-1">
             <div className="flex">
-              <h2 className="text-lg font-bold flex-1">Menu</h2>
-              <div className=" relative flex flex-1 justify-end">
+            <h1 className="text-lg font-bold px-2 py-1 font-lauren  bg-brown-900 text-white border border-brown-400 rounded-lg">Menu</h1>
+            <div className=" relative flex flex-1 justify-end">
                 <input
                   ref={inputRef}
                   type="text"

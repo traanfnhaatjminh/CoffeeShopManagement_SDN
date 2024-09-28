@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import WarehouseProduct from './page/warehouse/warehouseProduct';
-import WarehouseCategory from './page/warehouse/warehouseCategory';
+import LayoutProduct from './page/warehouse/layout_product';
+import LayoutCategory from './page/warehouse/layout_category';
 
 import AuthLogin from '@/page/auth/Login';
 import ForgotPassword from '@/page/auth/ForgotPassword';
@@ -23,8 +23,8 @@ function App() {
         <Route path="/login/reset-password" element={<ResetPassword />}></Route>
 
         <Route path="/" element={<CashierScreen />} />
-        <Route path="/warehouse/categories" element={<WarehouseCategory />} />
-        <Route path="/warehouse/products" element={<WarehouseProduct />} />
+        <Route path="/warehouse/categories" element={<LayoutCategory />} />
+        <Route path="/warehouse/products" element={<LayoutProduct />} />
         <Route path='/waiter' element={<Waiter />} />
         <Route path="/admin/userlist" element={<Layout />} />
       </Routes>
