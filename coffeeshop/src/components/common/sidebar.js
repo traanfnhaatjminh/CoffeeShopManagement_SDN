@@ -5,12 +5,15 @@ import { MdCategory, MdListAlt, MdLeaderboard } from "react-icons/md";
 import { HiMiniClipboardDocumentList } from "react-icons/hi2";
 import { IoIosSettings } from "react-icons/io";
 import { Link } from "react-router-dom";
+
+
+
 function Sidebar() {
   return (
     <div className="flex min-h-screen">
       <aside className="w-28 bg-brown-800 p-4 flex flex-col items-center space-y-4 justify-self-center">
     
-        <img src="logo.png" alt="Logo" className="w-8 h-8 mr-2" />
+      
         <div className="abc">
           <FaHome className="w-6 h-6 mb-1 text-gray-700" />
           <span className="text-sm text-gray-700 font-lauren font-semibold">

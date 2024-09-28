@@ -2,7 +2,7 @@
 import React from 'react'
 import { MdLogout } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
-
+import logo from "../../assets/img/z5872646337869_8529aff6a7d5eb21b.png"
 
 
 export default function Header() {
@@ -10,7 +10,7 @@ export default function Header() {
     <div>
        <nav className="bg-brown-900 flex items-center justify-between p-4 shadow-md">
             <div className="flex items-center">
-              
+            <img src={logo} alt="Logo" className="w-16 h-10 mr-2" />
                 <span className="text-white font-pacifico text-2xl">Coffe House Management</span>
             </div>
 
