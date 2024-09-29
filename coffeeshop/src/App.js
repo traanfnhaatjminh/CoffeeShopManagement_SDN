@@ -8,7 +8,6 @@ import VerifyPassword from '@/page/auth/VerifyPassword';
 import ResetPassword from '@/page/auth/ResetPassword';
 
 import React, { useState } from 'react';
-import axios from 'axios';
 import Layout from './page/shopowner/layout';
 import CashierScreen from './page/cashier/CashierScreen';
 import Waiter from './page/cashier/layout';

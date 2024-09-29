@@ -4,15 +4,15 @@ export default function AddUserModal({ closeModal }) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div className="bg-white p-6 rounded-lg w-1/2">
-        <h2 className="text-xl font-bold mb-4">Add New User</h2>
+        <h2 className="text-xl font-bold mb-4">Tạo người dùng mới</h2>
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label>Full Name</label>
+            <label>Tên đầy đủ</label>
             <input type="text" className="border rounded-md p-2 w-full" required />
           </div>
           <div>
-            <label>Date of Birth</label>
+            <label>Ngày/Tháng/Năm Sinh</label>
             <input type="date" className="border rounded-md p-2 w-full" />
           </div>
           <div>
@@ -20,48 +20,48 @@ export default function AddUserModal({ closeModal }) {
             <input type="email" className="border rounded-md p-2 w-full" />
           </div>
           <div>
-            <label>Phone</label>
+            <label>Số điện thoại</label>
             <input type="tel" className="border rounded-md p-2 w-full" />
           </div>
           <div>
-            <label>Address</label>
+            <label>Địa chỉ</label>
             <input type="text" className="border rounded-md p-2 w-full" />
           </div>
           <div>
-            <label>Username</label>
+            <label>Tên người dùng</label>
             <input type="text" className="border rounded-md p-2 w-full" />
           </div>
           <div>
-            <label>Password</label>
+            <label>Mật khẩu</label>
             <input type="password" className="border rounded-md p-2 w-full" />
           </div>
           <div>
-            <label>Confirm Password</label>
+            <label>Lặp lại mật khẩu</label>
             <input type="password" className="border rounded-md p-2 w-full" />
           </div>
           <div>
-            <label>Role</label>
+            <label>Vai trò</label>
             <select className="border rounded-md p-2 w-full">
-              <option value="cashier">Cashier</option>
-              <option value="warehouse">Warehouse</option>
-              <option value="barista">Barista</option>
+              <option value="cashier">Thu ngân</option>
+              <option value="warehouse">Nhân viên kho</option>
+              <option value="barista">Pha chế</option>
             </select>
           </div>
           <div>
-            <label>Status</label>
+            <label>Trạng thái</label>
             <select className="border rounded-md p-2 w-full">
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
+              <option value="1">Đang hoạt động</option>
+              <option value="0">Không hoạt động</option>
             </select>
           </div>
         </div>
 
         <div className="flex justify-end mt-4">
           <button onClick={closeModal} className="bg-gray-500 text-white px-4 py-2 rounded-lg mr-2">
-            Cancel
+            Hủy
           </button>
           <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded-lg">
-            Add User
+            Tạo 
           </button>
         </div>
       </div>

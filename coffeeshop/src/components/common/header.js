@@ -11,7 +11,7 @@ export default function Header() {
         </div>
 
         <div className="flex items-center space-x-4">
-          <span className="text-white">SDN302</span>
+          <span className="text-white">Admin</span>
           <button className="bg-brown-700 text-white p-2 rounded-lg hover:bg-blue-400">
             <CgProfile className="w-5 h-5" />
           </button>
