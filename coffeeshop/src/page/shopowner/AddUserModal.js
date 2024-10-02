@@ -61,7 +61,7 @@ export default function AddUserModal({ closeModal }) {
             Hủy
           </button>
           <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded-lg">
-            Tạo 
+            Tạo
           </button>
         </div>
       </div>

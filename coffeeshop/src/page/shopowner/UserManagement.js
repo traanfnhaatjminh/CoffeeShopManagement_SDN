@@ -34,7 +34,7 @@ export default function UserManagement({ showModal, setShowModal, setShowEditMod
     <div className="flex-1 p-4">
       <div className="mb-4 flex items-center justify-between">
         <h1 className="text-lg font-bold px-2 font-lauren border bg-brown-900 text-white border-brown-400 rounded-lg">
-          Quản lý người dùng
+          Quản lý nhân viên
         </h1>
       </div>
 

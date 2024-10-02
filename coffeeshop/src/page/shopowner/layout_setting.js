@@ -5,7 +5,7 @@ import Sidebar from '../../components/common/sidebar';
 import Header from '../../components/common/header'
 import UserManagement from './UserManagement';
 
-function Layout() {
+function LayoutSetting() {
   // State để quản lý hiển thị modaljkashjkadh
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -34,4 +34,4 @@ function Layout() {
   );
 }
 
-export default Layout;
+export default LayoutSetting;

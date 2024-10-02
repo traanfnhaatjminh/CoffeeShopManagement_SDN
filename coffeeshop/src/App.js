@@ -8,7 +8,8 @@ import VerifyPassword from '@/page/auth/VerifyPassword';
 import ResetPassword from '@/page/auth/ResetPassword';
 
 import React, { useState } from 'react';
-import Layout from './page/shopowner/layout';
+import LayoutSetting from './page/shopowner/layout_setting';
+import LayoutJobBoard from './page/shopowner/layout_JobBoard';
 import CashierScreen from './page/cashier/CashierScreen';
 import Waiter from './page/cashier/layout';
 
@@ -25,7 +26,8 @@ function App() {
         <Route path="/warehouse/categories" element={<LayoutCategory />} />
         <Route path="/warehouse/products" element={<LayoutProduct />} />
         <Route path='/waiter' element={<Waiter />} />
-        <Route path="/admin/userlist" element={<Layout />} />
+        <Route path="/admin/userlist" element={<LayoutSetting />} />
+        <Route path="/admin/jobboard" element={<LayoutJobBoard />} />
       </Routes>
     </BrowserRouter>
   );
