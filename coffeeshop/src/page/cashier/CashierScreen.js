@@ -1,38 +1,34 @@
-import React, { useState, useEffect, useRef } from "react";
-import "./style.css";
-import Sidebar from "../../components/common/sidebar";
-import Header from "../../components/common/header";
-import { IoSearch } from "react-icons/io5";
+import React, { useState, useEffect, useRef } from 'react';
+import './style.css';
+import Sidebar from '../../components/common/sidebar';
+import Header from '../../components/common/header';
+import { IoSearch } from 'react-icons/io5';
 
 const people = [
-  "Dries Vincent",
-  "Leslie Alexander",
-  "Michael Foster",
-  "Lindsay Walton",
-  "Courtney Henry",
-  "Tom Cook",
-  "Whitney Francis",
+  'Dries Vincent',
+  'Leslie Alexander',
+  'Michael Foster',
+  'Lindsay Walton',
+  'Courtney Henry',
+  'Tom Cook',
+  'Whitney Francis',
 ];
 const tables = [
-  { id: 1, status: "available" },
-  { id: 2, status: "occupied" },
-  { id: 3, status: "available" },
-  { id: 4, status: "occupied" },
-  { id: 5, status: "available" },
+  { id: 1, status: 'available' },
+  { id: 2, status: 'occupied' },
+  { id: 3, status: 'available' },
+  { id: 4, status: 'occupied' },
+  { id: 5, status: 'available' },
 ];
 export default function CashierScreen() {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
+  const [selected, setSelected] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
   const [filteredPeople, setFilteredPeople] = useState(people);
   const inputRef = useRef(null);
 
   useEffect(() => {
-    setFilteredPeople(
-      people.filter((person) =>
-        person.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    );
+    setFilteredPeople(people.filter((person) => person.toLowerCase().includes(searchTerm.toLowerCase())));
   }, [searchTerm]);
 
   useEffect(() => {
@@ -42,12 +38,12 @@ export default function CashierScreen() {
   }, [isOpen]);
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
-         <Header />
-     
+      <Header />
 
       {/* Main content */}
-      <main className=" flex flex-1 "> 
-           <Sidebar />
+      <main className=" flex flex-1 ">
+        <Sidebar />
+
         {/* Header */}
         {/* <header className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">Menu</h1>
@@ -202,58 +198,34 @@ export default function CashierScreen() {
             <div className="grid grid-cols-5 gap-4">
               {/* Drink 1 */}
               <div className="bg-white rounded-lg shadow p-4">
-                <img
-                  src="https://via.placeholder.com/150"
-                  alt="Trà Xanh Espresso Marble"
-                  className="mb-4 rounded"
-                />
+                <img src="https://via.placeholder.com/150" alt="Trà Xanh Espresso Marble" className="mb-4 rounded" />
                 <h3 className="text-items">Trà Xanh Espresso Marble</h3>
                 <p className="text-price">49,000.0 VND</p>
               </div>
               {/* Drink 2 */}
               <div className="bg-white rounded-lg shadow p-4">
-                <img
-                  src="https://via.placeholder.com/150"
-                  alt="Bơ Arabica"
-                  className="mb-4 rounded"
-                />
+                <img src="https://via.placeholder.com/150" alt="Bơ Arabica" className="mb-4 rounded" />
                 <h3 className="text-items">Bơ Arabica</h3>
                 <p className="text-price">49,000.0 VND</p>
               </div>
               {/* Drink 3 */}
               <div className="bg-white rounded-lg shadow p-4">
-                <img
-                  src="https://via.placeholder.com/150"
-                  alt="Đường Đen Sữa Đá"
-                  className="mb-4 rounded"
-                />
+                <img src="https://via.placeholder.com/150" alt="Đường Đen Sữa Đá" className="mb-4 rounded" />
                 <h3 className="text-items">Đường Đen Sữa Đá</h3>
                 <p className="text-price">45,000.0 VND</p>
               </div>
               <div className="bg-white rounded-lg shadow p-4">
-                <img
-                  src="https://via.placeholder.com/150"
-                  alt="Đường Đen Sữa Đá"
-                  className="mb-4 rounded"
-                />
+                <img src="https://via.placeholder.com/150" alt="Đường Đen Sữa Đá" className="mb-4 rounded" />
                 <h3 className="text-items">Đường Đen Sữa Đá</h3>
                 <p className="text-price">45,000.0 VND</p>
               </div>
               <div className="bg-white rounded-lg shadow p-4">
-                <img
-                  src="https://via.placeholder.com/150"
-                  alt="Đường Đen Sữa Đá"
-                  className="mb-4 rounded"
-                />
+                <img src="https://via.placeholder.com/150" alt="Đường Đen Sữa Đá" className="mb-4 rounded" />
                 <h3 className="text-items">Đường Đen Sữa Đá</h3>
                 <p className="text-price">45,000.0 VND</p>
               </div>
               <div className="bg-white rounded-lg shadow p-4">
-                <img
-                  src="https://via.placeholder.com/150"
-                  alt="Đường Đen Sữa Đá"
-                  className="mb-4 rounded"
-                />
+                <img src="https://via.placeholder.com/150" alt="Đường Đen Sữa Đá" className="mb-4 rounded" />
                 <h3 className="text-items">Đường Đen Sữa Đá</h3>
                 <p className="text-price">45,000.0 VND</p>
               </div>
@@ -290,12 +262,7 @@ export default function CashierScreen() {
 
             <div className="grid grid-cols-5 gap-2">
               {tables.map((table) => (
-                <div
-                  key={table.id}
-                  className={`table ${
-                    table.status === "available" ? "available" : "occupied"
-                  }`}
-                >
+                <div key={table.id} className={`table ${table.status === 'available' ? 'available' : 'occupied'}`}>
                   <span> {table.id}</span>
                   <br />
                 </div>

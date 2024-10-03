@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import EditUserModal from './EditUserModal';
 import AddUserModal from './AddUserModal';
-import Sidebar from './Sidebar';
+import Sidebar from '../../components/common/sidebar';
+import Header from '../../components/common/header';
 import UserManagement from './UserManagement';
 
 function Layout() {
@@ -11,24 +12,24 @@ function Layout() {
   const [currentUser, setCurrentUser] = useState(null);
 
   return (
-    <div className="flex h-screen">
+    <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
       <Sidebar />
 
       {/* Main Content */}
-      <div className="flex-1 p-4">
-        <UserManagement showModal={showModal} setShowModal={setShowModal}
-          setShowEditModal={setShowEditModal} setCurrentUser={setCurrentUser} />
+      <div className="flex-1">
+        <Header />
+        <UserManagement
+          showModal={showModal}
+          setShowModal={setShowModal}
+          setShowEditModal={setShowEditModal}
+          setCurrentUser={setCurrentUser}
+        />
       </div>
 
       {/* Modal để thêm người dùng */}
       {showModal && <AddUserModal closeModal={() => setShowModal(false)} />}
-      {showEditModal && (
-        <EditUserModal
-          user={currentUser}
-          closeModal={() => setShowEditModal(false)}
-        />
-      )}
+      {showEditModal && <EditUserModal user={currentUser} closeModal={() => setShowEditModal(false)} />}
     </div>
   );
 }
