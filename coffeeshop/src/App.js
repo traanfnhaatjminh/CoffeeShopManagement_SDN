@@ -13,6 +13,7 @@ import Layout from './page/shopowner/layout';
 import CashierScreen from './page/cashier/CashierScreen';
 import Waiter from './page/cashier/layout';
 import AllBillScreen from './page/cashier/AllBillScreen';
+import TableList from './page/cashier/TableList';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/login/reset-password" element={<ResetPassword />}></Route>
         <Route path="/allbill" element={<AllBillScreen/>}/>
         <Route path="/cashier" element={<CashierScreen />} />
+        <Route path="/tablelist" element={<TableList />} />
         <Route path="/warehouse/categories" element={<LayoutCategory />} />
         <Route path="/warehouse/products" element={<LayoutProduct />} />
         <Route path="/waiter" element={<Waiter />} />
