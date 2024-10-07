@@ -5,8 +5,8 @@ export default function EditUserModal({ user, closeModal }) {
     fullname: user?.fullname || '',
     email: user?.email || '',
     username: user?.username || '',
-    role: user?.role || 'Customer',
-    status: user?.status || 'Active',
+    role: user?.role || 'Thu ngân',
+    status: user?.status || 'Đang hoạt động',
   });
 
   const handleChange = (e) => {
@@ -30,14 +30,14 @@ export default function EditUserModal({ user, closeModal }) {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label>Fullname</label>
+            <label>Tên đầy đủ</label>
             <input
               type="text"
               name="fullname"
               value={formData.fullname}
               onChange={handleChange}
               className="border rounded-md p-2 w-full"
-              required
+              disabled
             />
           </div>
           <div>
@@ -48,47 +48,46 @@ export default function EditUserModal({ user, closeModal }) {
               value={formData.email}
               onChange={handleChange}
               className="border rounded-md p-2 w-full"
-              required
+              disabled
             />
           </div>
           <div>
-            <label>Username</label>
+            <label>Tên người dùng</label>
             <input
               type="text"
               name="username"
               value={formData.username}
               onChange={handleChange}
               className="border rounded-md p-2 w-full"
-              required
               disabled
             />
           </div>
           <div>
-            <label>Role</label>
+            <label>Vai trò</label>
             <select name="role" value={formData.role} onChange={handleChange} className="border rounded-md p-2 w-full">
-              <option value="Cashier">Cashier</option>
-              <option value="Warehouse">Warehouse</option>
-              <option value="Barista">Barista</option>
+              <option value="Cashier">Thu ngân</option>
+              <option value="Warehouse">Nhân viên kho</option>
+              <option value="Barista">Pha chế</option>
             </select>
           </div>
           <div>
-            <label>Status</label>
+            <label>Trạng thái</label>
             <select
               name="status"
               value={formData.status}
               onChange={handleChange}
               className="border rounded-md p-2 w-full"
             >
-              <option value="Active">Active</option>
-              <option value="Inactive">Inactive</option>
+              <option value="1">Đang hoạt động</option>
+              <option value="0">Không hoạt động</option>
             </select>
           </div>
           <div className="flex justify-end">
             <button type="button" onClick={closeModal} className="bg-gray-500 text-white px-4 py-2 rounded-lg mr-2">
-              Cancel
+              Hủy
             </button>
             <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded-lg">
-              Save
+              Lưu
             </button>
           </div>
         </form>

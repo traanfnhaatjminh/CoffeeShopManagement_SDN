@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaFilter, FaSearch, FaPlus, FaFileImport, FaEdit } from 'react-icons/fa';
 
 export default function UserManagement({ showModal, setShowModal, setShowEditModal, setCurrentUser }) {
   const users = [
@@ -6,15 +7,22 @@ export default function UserManagement({ showModal, setShowModal, setShowEditMod
       fullname: 'Minh Nhat',
       email: 'minh12a2nvc@gmail.com',
       username: 'minh05',
-      role: 'Shop owner (Admin)',
-      status: 'Active',
+      role: 'Thu ngân',
+      status: 1,
     },
+    {
+      fullname: 'Thành Nam',
+      email: 'nam@gmail.com',
+      username: 'namcanthanh',
+      role: 'Pha chế',
+      status: 0,
+    }
   ];
 
   const roles = [
-    { id: 1, name: 'Cashier' },
-    { id: 2, name: 'Warehouse' },
-    { id: 3, name: 'Barista' },
+    { id: 1, name: 'Thu ngân' },
+    { id: 2, name: 'Nhân viên kho' },
+    { id: 3, name: 'Pha chế' },
   ];
 
   const handleEdit = (user) => {
@@ -23,31 +31,28 @@ export default function UserManagement({ showModal, setShowModal, setShowEditMod
   };
 
   return (
-    <div className="p-4">
-      <div className="items-center justify-between">
-        <h1 className="text-2xl font-bold">User Management</h1>
-        <button className="bg-green-500 text-white px-4 py-2 rounded-lg" onClick={() => setShowModal(true)}>
-          Add User
-        </button>
+
+    <div className="flex-1 p-4">
+      <div className="mb-4 flex items-center justify-between">
+        <h1 className="text-lg font-bold px-2 font-lauren border bg-brown-900 text-white border-brown-400 rounded-lg">
+          Quản lý nhân viên
+        </h1>
+
       </div>
 
-      {/* Filter Section */}
-      <div className="mt-4 items-center space-x-4">
-        <div>
-          <label>Số người dùng trên mỗi trang:</label>
-          <select className="border rounded-md ml-2 p-1">
-            <option value="15">15</option>
-            <option value="30">30</option>
-          </select>
-        </div>
-        <div>
-          <input className="border rounded-md p-2 w-64" placeholder="Search users..." />
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-lg">Search</button>
-        </div>
+      <div className="flex mb-4 items-center space-x-2">
+        <input
+          type="text"
+          placeholder="Tìm kiếm sản phẩm..."
+          className="border border-gray-300 p-2 rounded-lg w-1/3 sm:w-auto"
+        />
+        <button className="bg-brown-900 text-white p-2 rounded-lg">
+          <FaSearch />
+        </button>
         <div>
           <select className="border rounded-md p-2">
             <option key={0} value={'all'}>
-              All
+              Tất cả
             </option>
             {roles.map((role) => (
               <option key={role.id} value={role.name}>
@@ -55,41 +60,52 @@ export default function UserManagement({ showModal, setShowModal, setShowEditMod
               </option>
             ))}
           </select>
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-lg">Filter</button>
+          <button className="bg-green-500 text-white px-4 py-2 rounded-lg">
+            <FaFilter />
+          </button>
         </div>
+        <button className="bg-green-300 p-2 rounded-lg flex items-center" onClick={() => setShowModal(true)}>
+          <FaPlus className="mr-1" />
+          Tạo người dùng mới
+        </button>
       </div>
 
-      {/* User Table */}
-      <table className="min-w-full bg-white border mt-4">
-        <thead>
-          <tr>
-            <th className="px-4 py-2 border">#</th>
-            <th className="px-4 py-2 border">Fullname</th>
-            <th className="px-4 py-2 border">Email</th>
-            <th className="px-4 py-2 border">Username</th>
-            <th className="px-4 py-2 border">Role</th>
-            <th className="px-4 py-2 border">Status</th>
-            <th className="px-4 py-2 border">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user, index) => (
-            <tr key={index} className="text-center">
-              <td className="border px-4 py-2">{index + 1}</td>
-              <td className="border px-4 py-2">{user.fullname}</td>
-              <td className="border px-4 py-2">{user.email}</td>
-              <td className="border px-4 py-2">{user.username}</td>
-              <td className="border px-4 py-2">{user.role}</td>
-              <td className="border px-4 py-2">{user.status}</td>
-              <td className="border px-4 py-2">
-                <button className="bg-yellow-500 text-white px-4 py-2 rounded-lg" onClick={() => handleEdit(user)}>
-                  Edit
-                </button>{' '}
-              </td>
+
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200 bg-white shadow-lg rounded-lg overflow-hidden">
+          <thead className="bg-gray-50">
+            <tr className="bg-gray-50">
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">STT</th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Tên đầy đủ</th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Email</th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Tên người dùng</th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Vai trò</th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Trạng thái</th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Chỉnh sửa</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {users.map((user, index) => (
+              <tr key={index} className="border-b">
+                <td className="px-6 py-4 text-lg font-medium text-gray-900">{index + 1}</td>
+                <td className="px-6 py-4 text-md text-gray-500">{user.fullname}</td>
+                <td className="px-6 py-4 text-md text-gray-500">{user.email}</td>
+                <td className="px-6 py-4 text-md text-gray-500">{user.username}</td>
+                <td className="px-6 py-4 text-md text-gray-500">{user.role}</td>
+                <td className="px-6 py-4 text-md text-gray-500" style={{ color: user.status === 1 ? 'green' : 'red' }}>
+                  {user.status === 1 ? 'Đang hoạt động' : 'Không hoạt động'}
+                </td>
+                <td className="px-6 py-4 text-md text-gray-500">
+                  <button className="bg-yellow-500 text-white px-4 py-2 rounded-lg" onClick={() => handleEdit(user)}>
+                    <FaEdit />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
+
   );
 }
