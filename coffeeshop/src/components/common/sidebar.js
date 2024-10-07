@@ -13,7 +13,7 @@ function Sidebar() {
 
         <div className="abc">
           <FaHome className="w-6 h-6 mb-1 text-gray-700" />
-          <Link to="/">
+          <Link to="/cashier">
             <span className="text-sm text-gray-700 font-lauren font-semibold">Home</span>
           </Link>
         </div>
@@ -40,14 +40,16 @@ function Sidebar() {
           <MdListAlt className="w-6 h-6 mb-1 text-gray-700" />
 
           <Link to="/allbill">
-       
+
             <span className="text-sm text-gray-700 font-lauren font-semibold">AllBill</span>
           </Link>
 
         </div>
         <div className="abc">
           <MdLeaderboard className="w-6 h-6 mb-1 text-gray-700" />
-          <span className="text-sm text-gray-700 font-lauren font-semibold">Statistic</span>
+          <Link to="/admin/statistic">
+            <span className="text-sm text-gray-700 font-lauren font-semibold">Statistic</span>
+          </Link>
         </div>
         <div className="abc">
           <IoIosSettings className="w-6 h-6 mb-1 text-gray-700" />
