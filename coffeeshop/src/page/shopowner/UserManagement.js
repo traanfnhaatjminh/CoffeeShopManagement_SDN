@@ -43,7 +43,7 @@ export default function UserManagement({ showModal, setShowModal, setShowEditMod
       <div className="flex mb-4 items-center space-x-2">
         <input
           type="text"
-          placeholder="Tìm kiếm sản phẩm..."
+          placeholder="Tìm kiếm nhân viên..."
           className="border border-gray-300 p-2 rounded-lg w-1/3 sm:w-auto"
         />
         <button className="bg-brown-900 text-white p-2 rounded-lg">
