@@ -77,15 +77,14 @@ export default function BillList() {
       netAmount: '$6,432.00',
     },
     {
-        id: '4HJK3N',
-        company: 'JPMorgan',
-        share: 'JPM',
-        commision: '-$3.67',
-        price: '$3,966.00',
-        quantity: '80.00',
-        netAmount: '$6,432.00',
-      },
-     
+      id: '4HJK3N',
+      company: 'JPMorgan',
+      share: 'JPM',
+      commision: '-$3.67',
+      price: '$3,966.00',
+      quantity: '80.00',
+      netAmount: '$6,432.00',
+    },
   ];
   return (
     <div className="flex flex-col h-screen w-screen bg-gray-100">
@@ -93,9 +92,7 @@ export default function BillList() {
         <div className="flex justify-between items-center p-6">
           <div>
             <h2 className="text-xl font-semibold text-gray-800">Tổng hóa đơn</h2>
-            <p className="text-sm text-gray-500">
-          
-            </p>
+            <p className="text-sm text-gray-500"></p>
           </div>
           <div className="relative flex flex-1 justify-end w-1/4 mr-6">
             <input
@@ -121,43 +118,43 @@ export default function BillList() {
                     scope="col"
                     className="sticky top-0 z-10 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50"
                   >
-                    Transaction ID
+                    STT
                   </th>
                   <th
                     scope="col"
                     className="sticky top-0 z-10 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50"
                   >
-                    Company
+                    TG tạo hóa đơn
                   </th>
                   <th
                     scope="col"
                     className="sticky top-0 z-10 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50"
                   >
-                    Share
+                    TG cập nhật
                   </th>
                   <th
                     scope="col"
                     className="sticky top-0 z-10 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50"
                   >
-                    Commision
+                   Bàn 
                   </th>
                   <th
                     scope="col"
                     className="sticky top-0 z-10 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50"
                   >
-                    Price
+                    Giảm giá
                   </th>
                   <th
                     scope="col"
                     className="sticky top-0 z-10 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50"
                   >
-                    Quantity
+                    PT Thanh Toán
                   </th>
                   <th
                     scope="col"
                     className="sticky top-0 z-10 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50"
                   >
-                    Net amount
+                   Tổng tiền
                   </th>
                   <th
                     scope="col"
