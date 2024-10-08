@@ -25,7 +25,7 @@ export default function EditProductModal({ product, closeModal }) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-4 rounded-lg w-1/3 h-auto">
+      <div className="bg-white p-4 rounded-lg w-1/3 h-auto" style={{ maxHeight: '90vh', overflowY: 'auto' }}>
         <h2 className="text-xl font-bold mb-2">Chỉnh sửa sản phẩm</h2>
 
         <form onSubmit={handleSubmit}>
@@ -107,7 +107,7 @@ export default function EditProductModal({ product, closeModal }) {
               Hủy
             </button>
             <button type="submit" className="bg-green-400 text-white px-3 py-1 rounded-lg">
-              Thêm
+              Lưu 
             </button>
           </div>
         </form>

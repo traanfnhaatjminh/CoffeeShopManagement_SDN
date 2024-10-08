@@ -12,13 +12,11 @@ function LayoutSetting() {
   const [currentUser, setCurrentUser] = useState(null);
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
-      {/* Sidebar */}
-      <Sidebar />
+    <div className="flex flex-col min-h-screen bg-gray-100">
 
-      {/* Main Content */}
-      <div className="flex-1">
-        <Header />
+      <Header />
+      <div className="flex flex-1">
+        <Sidebar />
         <UserManagement
           showModal={showModal}
           setShowModal={setShowModal}

@@ -40,7 +40,9 @@ export default function TableList() {
           {/* Menu Section */}
           <section className="flex-1">
             <div className="flex">
-              <h2 className="text-lg font-bold flex-1">Danh sách bàn</h2>
+              <h1 className="text-lg font-bold px-2 font-lauren border bg-brown-900 text-white border-brown-400 rounded-lg">
+                Danh sách bàn
+              </h1>
               <div className="relative flex flex-1 justify-end">
                 <input
                   type="text"
@@ -59,9 +61,8 @@ export default function TableList() {
                 <div
                   key={table.tableID}
                   onClick={() => handleTableClick(table)} // Thêm sự kiện khi nhấp vào bàn
-                  className={`bg-white rounded-lg shadow p-4 h-40 w-32 flex flex-col items-center justify-center cursor-pointer ${
-                    table.status === 0 ? 'bg-red-100' : 'bg-green-100'
-                  }`}
+                  className={`bg-white rounded-lg shadow p-4 h-40 w-32 flex flex-col items-center justify-center cursor-pointer ${table.status === 0 ? 'bg-red-100' : 'bg-green-100'
+                    }`}
                 >
                   <h3 className="text-center font-bold text-xl">Bàn {table.tableID}</h3>
                   <p className="text-sm">Số ghế: {table.numberOfChair}</p>
@@ -111,11 +112,11 @@ export default function TableList() {
                   <h4 className="font-semibold mb-2 ">Chọn phương thức thanh toán:</h4>
                   <div className="flex items-center">
                     <input
-                     type="checkbox"
-                     id="cash"
-                     value="cash"
-                     checked={paymentMethod === 'cash'}
-                     onChange={handleChange}
+                      type="checkbox"
+                      id="cash"
+                      value="cash"
+                      checked={paymentMethod === 'cash'}
+                      onChange={handleChange}
                       className="flex-1  py-2 px-1  rounded"
                     />
                     Thanh toán tiền mặt
@@ -126,7 +127,7 @@ export default function TableList() {
                       checked={paymentMethod === 'transfer'}
                       onChange={handleChange}
                       className="flex-1  py-2 px-4  rounded "
-                     
+
                     />
                     Thanh toán chuyển khoản
                   </div>

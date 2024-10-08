@@ -3,7 +3,7 @@ import React from 'react';
 export default function AddProductModal({ closeModal }) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-4 rounded-lg w-1/3 h-auto">
+      <div className="bg-white p-4 rounded-lg w-1/3 h-auto" style={{ maxHeight: '90vh', overflowY: 'auto' }}>
         <h2 className="text-xl font-bold mb-2">Thêm sản phẩm mới</h2>
 
         <div className="grid grid-cols-1 gap-2">

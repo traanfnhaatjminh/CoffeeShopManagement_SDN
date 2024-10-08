@@ -91,7 +91,9 @@ export default function BillList() {
       <div className="flex-grow flex flex-col bg-white shadow-sm overflow-hidden">
         <div className="flex justify-between items-center p-6">
           <div>
-            <h2 className="text-xl font-semibold text-gray-800">Tổng hóa đơn</h2>
+            <h1 className="text-lg font-bold px-2 font-lauren border bg-brown-900 text-white border-brown-400 rounded-lg">
+              Danh sách hóa đơn 
+            </h1>
             <p className="text-sm text-gray-500"></p>
           </div>
           <div className="relative flex flex-1 justify-end w-1/4 mr-6">
@@ -136,7 +138,7 @@ export default function BillList() {
                     scope="col"
                     className="sticky top-0 z-10 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50"
                   >
-                   Bàn 
+                    Bàn
                   </th>
                   <th
                     scope="col"
@@ -154,7 +156,7 @@ export default function BillList() {
                     scope="col"
                     className="sticky top-0 z-10 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50"
                   >
-                   Tổng tiền
+                    Tổng tiền
                   </th>
                   <th
                     scope="col"

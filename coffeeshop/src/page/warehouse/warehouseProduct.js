@@ -34,10 +34,11 @@ function WarehouseProduct({ showModal, setShowModal, setShowImportModal, setShow
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
-      <Sidebar />
-      <div className="flex-1">
-        <Header />
+    <div className="flex flex-col min-h-screen bg-gray-100">
+      <Header />
+
+      <div className="flex flex-1">
+        <Sidebar />
         <div className="flex-1 p-4">
           <div className="mb-4 flex items-center justify-between">
             <h1 className="text-lg font-bold px-2 font-lauren border bg-brown-900 text-white border-brown-400 rounded-lg">
@@ -80,9 +81,6 @@ function WarehouseProduct({ showModal, setShowModal, setShowImportModal, setShow
                     Mô tả
                   </th>
                   <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
-                    Đơn vị
-                  </th>
-                  <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
                     Số lượng
                   </th>
                   <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
@@ -102,7 +100,6 @@ function WarehouseProduct({ showModal, setShowModal, setShowImportModal, setShow
                     <td className="px-6 py-4 text-lg font-medium text-gray-900">{index + 1}</td>
                     <td className="px-6 py-4 text-md text-gray-500">{product.productName}</td>
                     <td className="px-6 py-4 text-md text-gray-500">{product.des}</td>
-                    <td className="px-6 py-4 text-md text-gray-500">{product.unit}</td>
                     <td className="px-6 py-4 text-md text-gray-500">{product.quantity}</td>
                     <td className="px-6 py-4 text-md text-gray-500">{product.price}</td>
                     <td className="px-6 py-4 text-md text-gray-500">
