@@ -23,11 +23,11 @@
 }
 
 .available {
-  background-color: #bfa094; /* Màu xanh nhạt cho bàn trống */
+  background-color: #50ff7c; /* Màu xanh nhạt cho bàn trống */
 }
 
 .occupied {
-  background-color: #ffffff; /* Màu đỏ nhạt cho bàn đầy */
+  background-color: #ff4747; /* Màu đỏ nhạt cho bàn đầy */
 }
 
 .table::before {

@@ -1,11 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function EditProductModal({ category, closeModal }) {
   const [formData, setFormData] = useState({
-    groupName: category?.groupName || '',
-    categoryName: category?.categoryName || '',
-    des: category?.des || '',
+    groupName: '',
+    categoryName: '',
   });
+
+  // Update form data when category prop changes
+  useEffect(() => {
+    if (category) {
+      setFormData({
+        groupName: category.group_name || '',
+        categoryName: category.category_name || '',
+      });
+    }
+  }, [category]);
 
   const handleChange = (e) => {
     setFormData({
@@ -16,7 +25,7 @@ export default function EditProductModal({ category, closeModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Updated Product:', formData);
+    console.log('Updated Category:', formData);
     closeModal();
   };
 
@@ -31,7 +40,7 @@ export default function EditProductModal({ category, closeModal }) {
               <label>Tên nhóm</label>
               <input
                 type="text"
-                name="productName"
+                name="groupName"
                 value={formData.groupName}
                 onChange={handleChange}
                 className="border rounded-md p-2 w-full"
@@ -42,23 +51,12 @@ export default function EditProductModal({ category, closeModal }) {
               <label>Tên danh mục</label>
               <input
                 type="text"
-                name="productName"
+                name="categoryName"
                 value={formData.categoryName}
                 onChange={handleChange}
                 className="border rounded-md p-2 w-full"
                 required
               />
-            </div>
-            <div>
-              <label>Mô tả</label>
-              <textarea
-                type="text"
-                name="des"
-                value={formData.des}
-                onChange={handleChange}
-                className="border rounded-md p-2 w-full"
-                rows="2"
-              ></textarea>
             </div>
           </div>
 
@@ -67,7 +65,7 @@ export default function EditProductModal({ category, closeModal }) {
               Hủy
             </button>
             <button type="submit" className="bg-green-400 text-white px-3 py-1 rounded-lg">
-              Thêm
+              Lưu
             </button>
           </div>
         </form>

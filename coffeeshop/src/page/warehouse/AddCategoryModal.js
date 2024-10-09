@@ -15,10 +15,6 @@ export default function AddProductModal({ closeModal }) {
             <label>Tên danh mục</label>
             <input type="text" className="border rounded-md p-2 w-full" required />
           </div>
-          <div>
-            <label>Mô tả</label>
-            <textarea className="border rounded-md p-2 w-full" rows="2"></textarea>
-          </div>
         </div>
 
         <div className="flex justify-end mt-3">

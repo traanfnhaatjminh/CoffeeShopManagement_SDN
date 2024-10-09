@@ -14,15 +14,14 @@ export default function UserManagement({ showModal, setShowModal, setShowEditMod
       fullname: 'Thành Nam',
       email: 'nam@gmail.com',
       username: 'namcanthanh',
-      role: 'Pha chế',
+      role: 'Quản lý kho',
       status: 0,
     }
   ];
 
   const roles = [
     { id: 1, name: 'Thu ngân' },
-    { id: 2, name: 'Nhân viên kho' },
-    { id: 3, name: 'Pha chế' },
+    { id: 2, name: 'Quản lý kho' },
   ];
 
   const handleEdit = (user) => {

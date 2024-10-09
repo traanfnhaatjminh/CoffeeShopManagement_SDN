@@ -5,19 +5,21 @@ import AuthLogin from '@/page/auth/Login';
 import ForgotPassword from '@/page/auth/ForgotPassword';
 import VerifyPassword from '@/page/auth/VerifyPassword';
 import ResetPassword from '@/page/auth/ResetPassword';
-import React, { useState } from 'react';
+import React from 'react';
 import LayoutSetting from './page/shopowner/layout_setting';
 import CashierScreen from './page/cashier/CashierScreen';
 import Waiter from './page/cashier/layout';
 import AllBillScreen from './page/cashier/AllBillScreen';
 import TableList from './page/cashier/TableList';
 import LayoutStatistic from './page/shopowner/layout_statistic'
+import LandingPage from './components/common/landing'
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<AuthLogin />}></Route>
+        <Route path="/" element={<LandingPage />}></Route>
+        <Route path="/login" element={<AuthLogin />}></Route>
         <Route path="/login/forgot-password" element={<ForgotPassword />}></Route>
         <Route path="/login/verify-password" element={<VerifyPassword />}></Route>
         <Route path="/login/reset-password" element={<ResetPassword />}></Route>

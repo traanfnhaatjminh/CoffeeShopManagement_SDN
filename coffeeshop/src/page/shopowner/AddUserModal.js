@@ -43,8 +43,7 @@ export default function AddUserModal({ closeModal }) {
             <label>Vai trò</label>
             <select className="border rounded-md p-2 w-full">
               <option value="cashier">Thu ngân</option>
-              <option value="warehouse">Nhân viên kho</option>
-              <option value="barista">Pha chế</option>
+              <option value="warehouse">Quản lý kho</option>
             </select>
           </div>
           <div>
