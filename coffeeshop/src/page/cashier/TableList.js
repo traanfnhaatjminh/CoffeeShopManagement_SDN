@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import Sidebar from '../../components/common/sidebar';
 import Header from '../../components/common/header';
 import { IoSearch } from 'react-icons/io5';
-import data from '../../data/database.json'
+import data from '../../data/database.json';
 
 export default function TableList() {
-
   const [selectedTable, setSelectedTable] = useState(null); // State để lưu bàn được chọn
   const [paymentMethod, setPaymentMethod] = useState(''); // State để lưu phương thức thanh toán
 
@@ -15,8 +14,8 @@ export default function TableList() {
     status: table.status,
     bill: [
       { item: 'Trà Sữa', price: 30000, quantity: 2 },
-      { item: 'Cà Phê', price: 40000, quantity: 1 }
-    ]
+      { item: 'Cà Phê', price: 40000, quantity: 1 },
+    ],
   }));
 
   // Hàm xử lý khi chọn bàn
@@ -65,8 +64,9 @@ export default function TableList() {
                 <div
                   key={table.tableID}
                   onClick={() => handleTableClick(table)} // Add click event for table selection
-                  className={`bg-white rounded-lg shadow p-4 h-40 w-32 flex flex-col items-center justify-center cursor-pointer ${table.status === 0 ? 'bg-red-100' : 'bg-green-100'
-                    }`}
+                  className={`bg-white rounded-lg shadow p-4 h-40 w-32 flex flex-col items-center justify-center cursor-pointer ${
+                    table.status === 0 ? 'bg-red-100' : 'bg-green-100'
+                  }`}
                 >
                   <h3 className="text-center font-bold text-xl">Bàn {table.tableID}</h3>
                   <p className="text-sm">Số ghế: {table.numberOfChair}</p>
@@ -131,7 +131,6 @@ export default function TableList() {
                       checked={paymentMethod === 'transfer'}
                       onChange={handleChange}
                       className="flex-1  py-2 px-4  rounded "
-
                     />
                     Thanh toán chuyển khoản
                   </div>
@@ -155,7 +154,6 @@ export default function TableList() {
               <p className="text-center">Chưa có bàn thanh toán</p>
             )}
           </section>
-
         </div>
       </main>
     </div>

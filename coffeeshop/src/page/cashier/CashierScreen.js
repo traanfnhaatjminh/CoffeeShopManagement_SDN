@@ -3,7 +3,7 @@ import './style.css';
 import Sidebar from '../../components/common/sidebar';
 import Header from '../../components/common/header';
 import { IoSearch } from 'react-icons/io5';
-import data from '../../data/database.json'
+import data from '../../data/database.json';
 
 const people = [
   'Dries Vincent',
@@ -45,7 +45,8 @@ export default function CashierScreen() {
   }, [isOpen]);
 
   const handleTableSelect = (table) => {
-    if (table.status === 0) { // Only allow if table is available
+    if (table.status === 0) {
+      // Only allow if table is available
       setSelectedTable(table.table_id);
     }
   };
@@ -53,13 +54,7 @@ export default function CashierScreen() {
   const handleAddToCart = (product) => {
     const existingProduct = cart.find((item) => item.pid === product.pid);
     if (existingProduct) {
-      setCart(
-        cart.map((item) =>
-          item.pid === product.pid
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
-      );
+      setCart(cart.map((item) => (item.pid === product.pid ? { ...item, quantity: item.quantity + 1 } : item)));
     } else {
       setCart([...cart, { ...product, quantity: 1, total: product.price }]);
     }
@@ -67,15 +62,17 @@ export default function CashierScreen() {
 
   const handleQuantityChange = (pid, change) => {
     setCart(
-      cart.map((item) =>
-        item.pid === pid
-          ? {
-            ...item,
-            quantity: item.quantity + change,
-            total: (item.quantity + change) * item.price,
-          }
-          : item
-      ).filter((item) => item.quantity > 0)
+      cart
+        .map((item) =>
+          item.pid === pid
+            ? {
+                ...item,
+                quantity: item.quantity + change,
+                total: (item.quantity + change) * item.price,
+              }
+            : item
+        )
+        .filter((item) => item.quantity > 0)
     );
   };
 
@@ -133,11 +130,7 @@ export default function CashierScreen() {
                   className="bg-white rounded-lg shadow p-4 cursor-pointer"
                   onClick={() => handleAddToCart(product)}
                 >
-                  <img
-                    src={product.image}
-                    alt={product.pname}
-                    className="mb-4 rounded"
-                  />
+                  <img src={product.image} alt={product.pname} className="mb-4 rounded" />
                   <h3 className="text-items">{product.pname}</h3>
                   <p className="text-price">{product.price} VND</p>
                 </div>
@@ -154,8 +147,7 @@ export default function CashierScreen() {
               {tables.map((table) => (
                 <div
                   key={table.table_id}
-                  className={`table ${table.status === 0 ? 'available' : 'occupied'
-                    }`}
+                  className={`table ${table.status === 0 ? 'available' : 'occupied'}`}
                   onClick={() => handleTableSelect(table)}
                   style={{
                     cursor: table.status === 0 ? 'pointer' : 'not-allowed',
@@ -166,11 +158,7 @@ export default function CashierScreen() {
               ))}
             </div>
 
-            {selectedTable && (
-              <p className="text-lg font-bold mb-4">
-                Selected Table: {selectedTable}
-              </p>
-            )}
+            {selectedTable && <p className="text-lg font-bold mb-4">Selected Table: {selectedTable}</p>}
 
             <table className="w-full text-left mb-6">
               <thead>
@@ -225,7 +213,6 @@ export default function CashierScreen() {
             <button className="w-full bg-brown-500 text-black py-2 px-4 rounded hover:bg-orange-400">
               Create Bill
             </button>
-
           </section>
         </div>
       </main>

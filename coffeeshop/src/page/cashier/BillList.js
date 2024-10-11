@@ -20,7 +20,7 @@ export default function BillList() {
         <div className="flex justify-between items-center p-6">
           <div>
             <h1 className="text-lg font-bold px-2 font-lauren border bg-brown-900 text-white border-brown-400 rounded-lg">
-              Danh sách hóa đơn 
+              Danh sách hóa đơn
             </h1>
             <p className="text-sm text-gray-500"></p>
           </div>

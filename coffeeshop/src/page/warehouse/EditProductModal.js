@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import data from '../../data/database.json'
+import data from '../../data/database.json';
 
 export default function EditProductModal({ product, closeModal }) {
   const [formData, setFormData] = useState({
@@ -9,7 +9,7 @@ export default function EditProductModal({ product, closeModal }) {
     quantity: '',
     price: '',
     image: null,
-    category: ''
+    category: '',
   });
 
   const [categories, setCategories] = useState([]);
@@ -24,7 +24,7 @@ export default function EditProductModal({ product, closeModal }) {
         quantity: product.quantity || '',
         price: product.price || '',
         image: product.image || '',
-        category: product.category_id || ''
+        category: product.category_id || '',
       });
     }
 
@@ -102,18 +102,9 @@ export default function EditProductModal({ product, closeModal }) {
             </div>
             <div>
               <label>Hình ảnh</label>
-              <input
-                type="file"
-                name="image"
-                onChange={handleImageChange}
-                className="border rounded-md p-2 w-full"
-              />
+              <input type="file" name="image" onChange={handleImageChange} className="border rounded-md p-2 w-full" />
               {formData.image && typeof formData.image === 'string' && (
-                <img
-                  src={formData.image}
-                  alt="Product"
-                  className="mt-2 w-16 h-16 object-cover rounded-lg"
-                />
+                <img src={formData.image} alt="Product" className="mt-2 w-16 h-16 object-cover rounded-lg" />
               )}
             </div>
             <div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaPen, FaTrash, FaPlus, FaFileImport } from 'react-icons/fa';
 import Sidebar from '../../components/common/sidebar';
 import Header from '../../components/common/header';
-import data from '../../data/database.json'
+import data from '../../data/database.json';
 
 function WarehouseProduct({ showModal, setShowModal, setShowImportModal, setShowEditModal, setProduct }) {
   const [products, setProducts] = useState([]);
@@ -83,11 +83,7 @@ function WarehouseProduct({ showModal, setShowModal, setShowImportModal, setShow
                     <td className="px-6 py-4 text-md text-gray-500">{product.quantity}</td>
                     <td className="px-6 py-4 text-md text-gray-500">{product.price}</td>
                     <td className="px-6 py-4 text-md text-gray-500">
-                      <img
-                        src={product.image}
-                        alt={product.pname}
-                        className="w-16 h-16 object-cover rounded-lg"
-                      />
+                      <img src={product.image} alt={product.pname} className="w-16 h-16 object-cover rounded-lg" />
                     </td>
                     <td className="px-6 py-4 text-md font-medium flex">
                       <button
