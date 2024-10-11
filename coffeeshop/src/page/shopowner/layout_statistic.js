@@ -6,17 +6,15 @@ import Header from '../../components/common/header';
 import Statistic from './Statistic';
 
 function LayoutSetting() {
-
-    return (
-        <div className="flex flex-col min-h-screen bg-gray-100">
-
-            <Header />
-            <div className="flex flex-1">
-                <Sidebar />
-                <Statistic />
-            </div>
-        </div>
-    );
+  return (
+    <div className="flex flex-col min-h-screen bg-gray-100">
+      <Header />
+      <div className="flex flex-1">
+        <Sidebar />
+        <Statistic />
+      </div>
+    </div>
+  );
 }
 
 export default LayoutSetting;

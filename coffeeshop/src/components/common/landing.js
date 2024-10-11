@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 function LandingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-r from-yellow-100 to-orange-200">
-
       <header className="flex justify-between items-center p-6">
         <div className="text-xl font-bold text-gray-700 flex items-center space-x-2">
           <span>logo</span>
@@ -17,9 +16,10 @@ function LandingPage() {
           <h1 className="text-5xl md:text-7xl font-bold text-gray-800 mb-4 font-pacifico italic">Coffe House</h1>
           <p className="text-3xl text-gray-600 mb-6 italic font-semibold">Management</p>
           <p className="text-gray-500 mb-8">
-            Chào mừng bạn đến với hệ thống quản lý quán cà phê. Hệ thống này được thiết kế để giúp bạn quản lý quán cà phê của mình </p>
-          <p className="text-gray-500 mb-8">
-            Ngày hôm nay cũng làm việc thật chăm chỉ nhé ‧𓍢ִ໋☕ ׂ 𓈒 ⋆ ۪ </p>
+            Chào mừng bạn đến với hệ thống quản lý quán cà phê. Hệ thống này được thiết kế để giúp bạn quản lý quán cà
+            phê của mình{' '}
+          </p>
+          <p className="text-gray-500 mb-8">Ngày hôm nay cũng làm việc thật chăm chỉ nhé ‧𓍢ִ໋☕ ׂ 𓈒 ⋆ ۪ </p>
           <div className="flex space-x-4">
             <button className="px-6 py-3 bg-white text-gray-800 border border-gray-500 hover:bg-gray-200 rounded-full font-lauren">
               <Link to={'/register'}>Sign Up For A Trial</Link>
@@ -31,11 +31,7 @@ function LandingPage() {
         </div>
 
         <div className="mt-12 md:mt-0">
-          <img
-            src={landingpage}
-            alt="Coffee cup"
-            className="w-110 h-110"
-          />
+          <img src={landingpage} alt="Coffee cup" className="w-110 h-110" />
         </div>
       </main>
     </div>
