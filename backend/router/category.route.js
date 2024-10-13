@@ -1,13 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const Category = require("../model/Category");
-const { CategoryRouter } = require(".");
 
 const categoryRouter = express.Router();
 categoryRouter.use(bodyParser.json());
 
 //Create a new category
-categoryRouter.post("/create", async (req, res, next) => {
+categoryRouter.post("/createCategory", async (req, res, next) => {
     try {
         // Extract data from req.body
         const { cid, group_name, category_name } = req.body;
@@ -24,5 +23,15 @@ categoryRouter.post("/create", async (req, res, next) => {
         next(error);
     }
 })
+
+// Get all categories
+categoryRouter.get("/", async (req, res, next) => {
+    try {
+        const categories = await Category.find(); // Fetch all categories from the DB
+        res.status(200).json(categories);
+    } catch (error) {
+        next(error);
+    }
+});
 
 module.exports = categoryRouter;

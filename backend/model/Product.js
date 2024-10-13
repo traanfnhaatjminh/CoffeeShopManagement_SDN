@@ -2,20 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const productSchema = new Schema({
-    pid: {
-        type: Number,
-        required: true,
-        unique: true
-    },
     pname: {
         type: String,
         required: true,
         unique: true
-    },
-    description: String,
-    unit: {
-        type: String,
-        required: true
     },
     quantity: {
         type: Number,

@@ -4,6 +4,7 @@ import Sidebar from '../../components/common/sidebar';
 import Header from '../../components/common/header';
 import { IoSearch } from 'react-icons/io5';
 import data from '../../data/database.json';
+import axios from 'axios';
 
 const people = [
   'Dries Vincent',
@@ -29,20 +30,25 @@ export default function CashierScreen() {
   const inputRef = useRef(null);
   const [selectedTable, setSelectedTable] = useState(null);
   const [cart, setCart] = useState([]);
+  const [categories, setCategories] = useState([]);
 
-  const categories = data.categories;
   const products = data.products;
   const tables = data.tablelist;
 
   useEffect(() => {
     setFilteredPeople(people.filter((person) => person.toLowerCase().includes(searchTerm.toLowerCase())));
-  }, [searchTerm]);
-
-  useEffect(() => {
     if (isOpen && inputRef.current) {
       inputRef.current.focus();
     }
-  }, [isOpen]);
+
+    axios.get('/createbill')
+      .then((response) => {
+        setCategories(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching categories:', error);
+      });
+  }, [searchTerm, isOpen]);
 
   const handleTableSelect = (table) => {
     if (table.status === 0) {
@@ -66,10 +72,10 @@ export default function CashierScreen() {
         .map((item) =>
           item.pid === pid
             ? {
-                ...item,
-                quantity: item.quantity + change,
-                total: (item.quantity + change) * item.price,
-              }
+              ...item,
+              quantity: item.quantity + change,
+              total: (item.quantity + change) * item.price,
+            }
             : item
         )
         .filter((item) => item.quantity > 0)

@@ -24,7 +24,7 @@ function App() {
         <Route path="/login/verify-password" element={<VerifyPassword />}></Route>
         <Route path="/login/reset-password" element={<ResetPassword />}></Route>
         <Route path="/allbill" element={<AllBillScreen />} />
-        <Route path="/cashier" element={<CashierScreen />} />
+        <Route path="/createBill" element={<CashierScreen />} />
         <Route path="/tablelist" element={<TableList />} />
         <Route path="/warehouse/categories" element={<LayoutCategory />} />
         <Route path="/warehouse/products" element={<LayoutProduct />} />

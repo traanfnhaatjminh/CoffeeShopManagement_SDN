@@ -10,6 +10,7 @@ const cookieParser = require("cookie-parser");
 const { StatusCodes } = require("http-status-codes");
 
 const CategoryRouter = require("./router/category.route");
+const ProductRouter = require("./router/product.route")
 const authRouter = require("./router/auth/auth.routers");
 
 const HOST = process.env.HOSTNAME;
@@ -40,7 +41,8 @@ app.get("/", async (req, res, next) => {
     res.status(StatusCodes.OK).json({ message: "Welcome to Group 5" });
 });
 
-app.use("/category", CategoryRouter);
+app.use("/createbill", CategoryRouter);
+app.use("/products", ProductRouter);
 app.use("/api/auth", authRouter);
 
 app.use("/", async (req, res, next) => {

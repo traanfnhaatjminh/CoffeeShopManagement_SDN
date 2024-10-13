@@ -10,7 +10,7 @@ function Sidebar() {
       <aside className="w-28 bg-brown-800 p-4 flex flex-col items-center space-y-4 justify-self-center">
         <div className="abc">
           <FaHome className="w-6 h-6 mb-1 text-gray-700" />
-          <Link to="/cashier">
+          <Link to="/createbill">
             <span className="text-sm text-gray-700 font-lauren font-semibold">Home</span>
           </Link>
         </div>
