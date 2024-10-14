@@ -1,32 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaPen, FaTrash, FaPlus, FaFileImport } from 'react-icons/fa';
 import Sidebar from '../../components/common/sidebar';
 import Header from '../../components/common/header';
+import data from '../../data/database.json';
+
 function WarehouseProduct({ showModal, setShowModal, setShowImportModal, setShowEditModal, setProduct }) {
-  const data = [
-    {
-      id: 1,
-      productId: 1,
-      productName: 'Trà Xanh Annabelle',
-      des: 'Ngon số 1',
-      unit: 'kg',
-      quantity: 1,
-      price: 49000,
-      image: 'abc',
-      categoryId: 1,
-    },
-    {
-      id: 2,
-      productId: 2,
-      productName: 'Cà phê Ci Sáp',
-      des: 'Ngon số 2',
-      unit: 'gr',
-      quantity: 2,
-      price: 49000,
-      image: 'abc',
-      categoryId: 2,
-    },
-  ];
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    // Load the products from the JSON file
+    setProducts(data.products);
+  }, []);
 
   const handleEdit = (product) => {
     setProduct(product);
@@ -34,10 +18,11 @@ function WarehouseProduct({ showModal, setShowModal, setShowImportModal, setShow
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
-      <Sidebar />
-      <div className="flex-1">
-        <Header />
+    <div className="flex flex-col min-h-screen bg-gray-100">
+      <Header />
+
+      <div className="flex flex-1">
+        <Sidebar />
         <div className="flex-1 p-4">
           <div className="mb-4 flex items-center justify-between">
             <h1 className="text-lg font-bold px-2 font-lauren border bg-brown-900 text-white border-brown-400 rounded-lg">
@@ -77,12 +62,6 @@ function WarehouseProduct({ showModal, setShowModal, setShowImportModal, setShow
                     Tên Sản Phẩm
                   </th>
                   <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
-                    Mô tả
-                  </th>
-                  <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
-                    Đơn vị
-                  </th>
-                  <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
                     Số lượng
                   </th>
                   <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
@@ -97,20 +76,14 @@ function WarehouseProduct({ showModal, setShowModal, setShowImportModal, setShow
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {data.map((product, index) => (
-                  <tr key={index} className="border-b">
+                {products.map((product, index) => (
+                  <tr key={product.pid} className="border-b">
                     <td className="px-6 py-4 text-lg font-medium text-gray-900">{index + 1}</td>
-                    <td className="px-6 py-4 text-md text-gray-500">{product.productName}</td>
-                    <td className="px-6 py-4 text-md text-gray-500">{product.des}</td>
-                    <td className="px-6 py-4 text-md text-gray-500">{product.unit}</td>
+                    <td className="px-6 py-4 text-md text-gray-500">{product.pname}</td>
                     <td className="px-6 py-4 text-md text-gray-500">{product.quantity}</td>
                     <td className="px-6 py-4 text-md text-gray-500">{product.price}</td>
                     <td className="px-6 py-4 text-md text-gray-500">
-                      <img
-                        src={product.image}
-                        alt={product.productName}
-                        className="w-16 h-16 object-cover rounded-lg"
-                      />
+                      <img src={product.image} alt={product.pname} className="w-16 h-16 object-cover rounded-lg" />
                     </td>
                     <td className="px-6 py-4 text-md font-medium flex">
                       <button

@@ -14,15 +14,14 @@ export default function UserManagement({ showModal, setShowModal, setShowEditMod
       fullname: 'Thành Nam',
       email: 'nam@gmail.com',
       username: 'namcanthanh',
-      role: 'Pha chế',
+      role: 'Quản lý kho',
       status: 0,
-    }
+    },
   ];
 
   const roles = [
     { id: 1, name: 'Thu ngân' },
-    { id: 2, name: 'Nhân viên kho' },
-    { id: 3, name: 'Pha chế' },
+    { id: 2, name: 'Quản lý kho' },
   ];
 
   const handleEdit = (user) => {
@@ -31,13 +30,11 @@ export default function UserManagement({ showModal, setShowModal, setShowEditMod
   };
 
   return (
-
     <div className="flex-1 p-4">
       <div className="mb-4 flex items-center justify-between">
         <h1 className="text-lg font-bold px-2 font-lauren border bg-brown-900 text-white border-brown-400 rounded-lg">
           Quản lý nhân viên
         </h1>
-
       </div>
 
       <div className="flex mb-4 items-center space-x-2">
@@ -70,18 +67,27 @@ export default function UserManagement({ showModal, setShowModal, setShowEditMod
         </button>
       </div>
 
-
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200 bg-white shadow-lg rounded-lg overflow-hidden">
           <thead className="bg-gray-50">
             <tr className="bg-gray-50">
               <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">STT</th>
-              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Tên đầy đủ</th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+                Tên đầy đủ
+              </th>
               <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Email</th>
-              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Tên người dùng</th>
-              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Vai trò</th>
-              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Trạng thái</th>
-              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Chỉnh sửa</th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+                Tên người dùng
+              </th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+                Vai trò
+              </th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+                Trạng thái
+              </th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+                Chỉnh sửa
+              </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -106,6 +112,5 @@ export default function UserManagement({ showModal, setShowModal, setShowEditMod
         </table>
       </div>
     </div>
-
   );
 }

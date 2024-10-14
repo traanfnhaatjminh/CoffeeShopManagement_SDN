@@ -1,19 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import data from '../../data/database.json';
 
 export default function EditProductModal({ product, closeModal }) {
   const [formData, setFormData] = useState({
-    productName: product?.productName || '',
-    des: product?.des || '',
-    unit: product?.unit || '',
-    quantity: product?.quantity || '',
-    price: product?.price || '',
+    productName: '',
+    des: '',
+    unit: '',
+    quantity: '',
+    price: '',
     image: null,
+    category: '',
   });
+
+  const [categories, setCategories] = useState([]);
+
+  // Load the product data into form fields when modal opens
+  useEffect(() => {
+    if (product) {
+      setFormData({
+        productName: product.pname || '',
+        des: product.description || '',
+        unit: product.unit || '',
+        quantity: product.quantity || '',
+        price: product.price || '',
+        image: product.image || '',
+        category: product.category_id || '',
+      });
+    }
+
+    // Load categories from JSON file (categoriesData is already imported)
+    setCategories(data.categories);
+  }, [product]);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleImageChange = (e) => {
+    setFormData({
+      ...formData,
+      image: e.target.files[0], // Storing the selected image file
     });
   };
 
@@ -25,7 +54,7 @@ export default function EditProductModal({ product, closeModal }) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-4 rounded-lg w-1/3 h-auto">
+      <div className="bg-white p-4 rounded-lg w-1/3 h-auto" style={{ maxHeight: '90vh', overflowY: 'auto' }}>
         <h2 className="text-xl font-bold mb-2">Chỉnh sửa sản phẩm</h2>
 
         <form onSubmit={handleSubmit}>
@@ -40,17 +69,6 @@ export default function EditProductModal({ product, closeModal }) {
                 className="border rounded-md p-2 w-full"
                 required
               />
-            </div>
-            <div>
-              <label>Mô tả</label>
-              <textarea
-                type="text"
-                name="des"
-                value={formData.des}
-                onChange={handleChange}
-                className="border rounded-md p-2 w-full"
-                rows="2"
-              ></textarea>
             </div>
             <div>
               <label>Định lượng</label>
@@ -84,20 +102,25 @@ export default function EditProductModal({ product, closeModal }) {
             </div>
             <div>
               <label>Hình ảnh</label>
-              <input type="file" name="image" onChange={handleChange} className="border rounded-md p-2 w-full" />
+              <input type="file" name="image" onChange={handleImageChange} className="border rounded-md p-2 w-full" />
+              {formData.image && typeof formData.image === 'string' && (
+                <img src={formData.image} alt="Product" className="mt-2 w-16 h-16 object-cover rounded-lg" />
+              )}
             </div>
             <div>
               <label>Danh sách danh mục</label>
               <select
                 name="category"
-                value={formData.category || ''}
+                value={formData.category}
                 onChange={handleChange}
                 className="border rounded-md p-2 w-full"
               >
                 <option value="">Chọn danh mục</option>
-                <option value="coffee">Cà phê</option>
-                <option value="highlight_coffee">Cà phê Highlight</option>
-                <option value="tea">Trà Hitea</option>
+                {categories.map((cat) => (
+                  <option key={cat.cid} value={cat.cid}>
+                    {cat.category_name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -107,7 +130,7 @@ export default function EditProductModal({ product, closeModal }) {
               Hủy
             </button>
             <button type="submit" className="bg-green-400 text-white px-3 py-1 rounded-lg">
-              Thêm
+              Lưu
             </button>
           </div>
         </form>

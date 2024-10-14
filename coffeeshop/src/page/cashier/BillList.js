@@ -5,85 +5,13 @@ import { GrFormPrevious, GrFormNext } from 'react-icons/gr';
 export default function BillList() {
   const transactionsData = [
     {
-      id: 'AAPS0L',
-      company: 'Chase & Co.',
-      share: 'CAC',
-      commision: '+$4.37',
-      price: '$3,509.00',
-      quantity: '12.00',
-      netAmount: '$4,397.00',
-    },
-    {
-      id: 'O2KMND',
-      company: 'Amazon.com Inc.',
-      share: 'AMZN',
-      commision: '+$5.92',
-      price: '$2,900.00',
-      quantity: '8.80',
-      netAmount: '$3,509.00',
-    },
-    {
-      id: '1LP2P4',
-      company: 'Procter & Gamble',
-      share: 'PG',
-      commision: '-$5.65',
-      price: '$7,978.00',
-      quantity: '2.30',
-      netAmount: '$2,652.00',
-    },
-    {
-      id: 'PS9FJGL',
-      company: 'Berkshire Hathaway',
-      share: 'BRK',
-      commision: '+$4.37',
-      price: '$3,116.00',
-      quantity: '48.00',
-      netAmount: '$6,055.00',
-    },
-    {
-      id: 'QYR135',
-      company: 'Apple Inc.',
-      share: 'AAPL',
-      commision: '+$38.00',
-      price: '$8,508.00',
-      quantity: '36.00',
-      netAmount: '$3,496.00',
-    },
-    {
-      id: '99SLSM',
-      company: 'NVIDIA Corporation',
-      share: 'NVDA',
-      commision: '+$1,427.00',
-      price: '$4,425.00',
-      quantity: '18.00',
-      netAmount: '$2,109.00',
-    },
-    {
-      id: 'OSDJLS',
-      company: 'Johnson & Johnson',
-      share: 'JNJ',
-      commision: '+$1,937.23',
-      price: '$4,038.00',
-      quantity: '32.00',
-      netAmount: '$7,210.00',
-    },
-    {
-      id: '4HJK3N',
-      company: 'JPMorgan',
-      share: 'JPM',
-      commision: '-$3.67',
-      price: '$3,966.00',
-      quantity: '80.00',
-      netAmount: '$6,432.00',
-    },
-    {
-      id: '4HJK3N',
-      company: 'JPMorgan',
-      share: 'JPM',
-      commision: '-$3.67',
-      price: '$3,966.00',
-      quantity: '80.00',
-      netAmount: '$6,432.00',
+      id: 1,
+      company: '11:58 10/10/2024',
+      share: '14:31 10/10/2024',
+      commision: '3',
+      price: '0%',
+      quantity: 'Chuyển khoản',
+      netAmount: '70.000 VND',
     },
   ];
   return (
@@ -91,7 +19,9 @@ export default function BillList() {
       <div className="flex-grow flex flex-col bg-white shadow-sm overflow-hidden">
         <div className="flex justify-between items-center p-6">
           <div>
-            <h2 className="text-xl font-semibold text-gray-800">Tổng hóa đơn</h2>
+            <h1 className="text-lg font-bold px-2 font-lauren border bg-brown-900 text-white border-brown-400 rounded-lg">
+              Danh sách hóa đơn
+            </h1>
             <p className="text-sm text-gray-500"></p>
           </div>
           <div className="relative flex flex-1 justify-end w-1/4 mr-6">
@@ -130,13 +60,13 @@ export default function BillList() {
                     scope="col"
                     className="sticky top-0 z-10 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50"
                   >
-                    TG cập nhật
+                    TG thanh toán
                   </th>
                   <th
                     scope="col"
                     className="sticky top-0 z-10 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50"
                   >
-                   Bàn 
+                    Bàn
                   </th>
                   <th
                     scope="col"
@@ -154,7 +84,7 @@ export default function BillList() {
                     scope="col"
                     className="sticky top-0 z-10 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50"
                   >
-                   Tổng tiền
+                    Tổng tiền
                   </th>
                   <th
                     scope="col"

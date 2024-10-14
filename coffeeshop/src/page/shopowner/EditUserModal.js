@@ -26,7 +26,7 @@ export default function EditUserModal({ user, closeModal }) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div className="bg-white p-6 rounded-lg w-1/3">
-        <h2 className="text-xl font-bold mb-4">Update User</h2>
+        <h2 className="text-xl font-bold mb-4">Chỉnh sửa người dùng</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -66,8 +66,7 @@ export default function EditUserModal({ user, closeModal }) {
             <label>Vai trò</label>
             <select name="role" value={formData.role} onChange={handleChange} className="border rounded-md p-2 w-full">
               <option value="Cashier">Thu ngân</option>
-              <option value="Warehouse">Nhân viên kho</option>
-              <option value="Barista">Pha chế</option>
+              <option value="Warehouse">Quản lý kho</option>
             </select>
           </div>
           <div>
