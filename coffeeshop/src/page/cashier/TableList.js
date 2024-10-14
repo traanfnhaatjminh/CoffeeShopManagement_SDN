@@ -118,7 +118,7 @@ export default function TableList() {
                      onChange={handleChange}
                       className="flex-1  py-2 px-1  rounded"
                     />
-                    Thanh toán tiền mặt
+                    Tiền mặt
                     <input
                       type="checkbox"
                       id="transfer"
@@ -128,7 +128,7 @@ export default function TableList() {
                       className="flex-1  py-2 px-4  rounded "
                      
                     />
-                    Thanh toán chuyển khoản
+                    Chuyển khoản
                   </div>
                 </div>
 
