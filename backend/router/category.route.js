@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const Category = require("../model/Category");
+const Product = require("../model/Product");
 
 const categoryRouter = express.Router();
 categoryRouter.use(bodyParser.json());
@@ -9,10 +10,10 @@ categoryRouter.use(bodyParser.json());
 categoryRouter.post("/createCategory", async (req, res, next) => {
     try {
         // Extract data from req.body
-        const {group_name, category_name } = req.body;
+        const { group_name, category_name } = req.body;
 
         //Lấy dữ liệu từ request từ client
-        const newCategory = new Category({group_name, category_name });
+        const newCategory = new Category({ group_name, category_name });
         await newCategory.save().then(newDoc => {
             res.status(201).json({
                 message: "Insert successfully.",
@@ -25,10 +26,12 @@ categoryRouter.post("/createCategory", async (req, res, next) => {
 })
 
 // Get all categories
-categoryRouter.get("/", async (req, res, next) => {
+categoryRouter.get("/list", async (req, res, next) => {
     try {
-        const categories = await Category.find(); // Fetch all categories from the DB
-        res.status(200).json(categories);
+        const categories = await Category.find();
+        res.status(200).json(
+            categories
+        );
     } catch (error) {
         next(error);
     }

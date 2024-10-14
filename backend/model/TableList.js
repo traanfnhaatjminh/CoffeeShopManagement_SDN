@@ -10,6 +10,8 @@ const tableList = new Schema({
         type: Boolean,
         required: true
     }
+    //false: hết bàn 
+    //true: còn bàn
 });
 
 module.exports = mongoose.model('TableList', tableList);

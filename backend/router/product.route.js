@@ -24,4 +24,13 @@ productRouter.post("/createProduct", async (req, res) => {
     }
 });
 
+productRouter.get("/list", async (req, res, next) => {
+    try {
+        const products = await Product.find(); // Fetch all categories from the DB
+        res.status(200).json(products);
+    } catch (error) {
+        next(error);
+    }
+});
+
 module.exports = productRouter;

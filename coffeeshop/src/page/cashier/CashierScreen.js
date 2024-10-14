@@ -3,7 +3,6 @@ import './style.css';
 import Sidebar from '../../components/common/sidebar';
 import Header from '../../components/common/header';
 import { IoSearch } from 'react-icons/io5';
-import data from '../../data/database.json';
 import axios from 'axios';
 
 const people = [
@@ -31,9 +30,8 @@ export default function CashierScreen() {
   const [selectedTable, setSelectedTable] = useState(null);
   const [cart, setCart] = useState([]);
   const [categories, setCategories] = useState([]);
-
-  const products = data.products;
-  const tables = data.tablelist;
+  const [products, setProducts] = useState([]);
+  const [tables, setTables] = useState([]);
 
   useEffect(() => {
     setFilteredPeople(people.filter((person) => person.toLowerCase().includes(searchTerm.toLowerCase())));
@@ -41,36 +39,55 @@ export default function CashierScreen() {
       inputRef.current.focus();
     }
 
-    axios.get('/createbill')
+    axios.get('/categories/list')
       .then((response) => {
         setCategories(response.data);
       })
       .catch((error) => {
         console.error('Error fetching categories:', error);
       });
+
+    axios
+      .get("/products/list")
+      .then((response) => {
+        setProducts(response.data); // Set the fetched products to state
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+      });
+
+    axios
+      .get("/tables/list")
+      .then((response) => {
+        setTables(response.data); // Set the fetched products to state
+      })
+      .catch((error) => {
+        console.error("Error fetching tables:", error);
+      });
+
   }, [searchTerm, isOpen]);
 
-  const handleTableSelect = (table) => {
-    if (table.status === 0) {
+  const handleTableSelect = (table, index) => {
+    if (table.status === true) {
       // Only allow if table is available
-      setSelectedTable(table.table_id);
+      setSelectedTable(index + 1);
     }
   };
 
   const handleAddToCart = (product) => {
-    const existingProduct = cart.find((item) => item.pid === product.pid);
+    const existingProduct = cart.find((item) => item._id === product._id);
     if (existingProduct) {
-      setCart(cart.map((item) => (item.pid === product.pid ? { ...item, quantity: item.quantity + 1 } : item)));
+      setCart(cart.map((item) => (item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item)));
     } else {
       setCart([...cart, { ...product, quantity: 1, total: product.price }]);
     }
   };
 
-  const handleQuantityChange = (pid, change) => {
+  const handleQuantityChange = (_id, change) => {
     setCart(
       cart
         .map((item) =>
-          item.pid === pid
+          item._id === _id
             ? {
               ...item,
               quantity: item.quantity + change,
@@ -150,16 +167,16 @@ export default function CashierScreen() {
             <h2 className="text-xl font-semibold mb-4">Table</h2>
 
             <div className="grid grid-cols-5 gap-2 mb-4">
-              {tables.map((table) => (
+              {tables.map((table, index) => (
                 <div
-                  key={table.table_id}
-                  className={`table ${table.status === 0 ? 'available' : 'occupied'}`}
-                  onClick={() => handleTableSelect(table)}
+                  key={table._id}
+                  className={`table ${table.status === true ? 'available' : 'occupied'}`}
+                  onClick={() => handleTableSelect(table, index)}
                   style={{
-                    cursor: table.status === 0 ? 'pointer' : 'not-allowed',
+                    cursor: table.status === true ? 'pointer' : 'not-allowed',
                   }}
                 >
-                  <span>{table.table_id}</span>
+                  <span>{index + 1}</span>
                 </div>
               ))}
             </div>
@@ -177,21 +194,21 @@ export default function CashierScreen() {
               </thead>
               <tbody>
                 {cart.length > 0 ? (
-                  cart.map((item) => (
-                    <tr key={item.pid}>
+                  cart.map((item, index) => (
+                    <tr key={index}>
                       <td className="py-2">{item.pname}</td>
                       <td className="py-2">{item.price} VND</td>
                       <td className="py-2">
                         <div className="flex items-center space-x-2">
                           <button
-                            onClick={() => handleQuantityChange(item.pid, -1)}
+                            onClick={() => handleQuantityChange(item._id, -1)}
                             className="px-2 py-1 bg-gray-300 rounded"
                           >
                             -
                           </button>
                           <span>{item.quantity}</span>
                           <button
-                            onClick={() => handleQuantityChange(item.pid, 1)}
+                            onClick={() => handleQuantityChange(item._id, 1)}
                             className="px-2 py-1 bg-gray-300 rounded"
                           >
                             +
