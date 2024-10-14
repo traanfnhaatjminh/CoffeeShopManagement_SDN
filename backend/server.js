@@ -10,7 +10,7 @@ const cookieParser = require("cookie-parser");
 const { StatusCodes } = require("http-status-codes");
 
 const CategoryRouter = require("./router/category.route");
-const ProductRouter = require("./router/product.route")
+const ProductRouter = require("./router/product.route");
 const authRouter = require("./router/auth/auth.routers");
 
 const HOST = process.env.HOSTNAME;

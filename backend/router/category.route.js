@@ -9,10 +9,10 @@ categoryRouter.use(bodyParser.json());
 categoryRouter.post("/createCategory", async (req, res, next) => {
     try {
         // Extract data from req.body
-        const { cid, group_name, category_name } = req.body;
+        const {group_name, category_name } = req.body;
 
         //Lấy dữ liệu từ request từ client
-        const newCategory = new Category({ cid, group_name, category_name });
+        const newCategory = new Category({group_name, category_name });
         await newCategory.save().then(newDoc => {
             res.status(201).json({
                 message: "Insert successfully.",
