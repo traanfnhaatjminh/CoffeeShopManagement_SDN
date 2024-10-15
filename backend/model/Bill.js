@@ -23,7 +23,7 @@ const billSchema = new Schema({
     },
     table_id: {
         type: Schema.Types.ObjectId,
-        ref: 'Dinnertable'
+        ref: 'TableList'
     },
     payment: String,
     status: Number,

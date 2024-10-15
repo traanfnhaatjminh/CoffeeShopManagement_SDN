@@ -103,6 +103,20 @@ export default function CashierScreen() {
     return cart.reduce((sum, item) => sum + item.total, 0);
   };
 
+  const handleCategorySelect = (categoryId) => {
+    console.log("Selected Category ID:", categoryId);  // Kiểm tra ID được chọn
+
+    axios.get(`/products/getByCategory/${categoryId}`)
+      .then((response) => {
+        console.log("Products by category:", response.data);  // Kiểm tra dữ liệu trả về
+        setProducts(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching products by category:', error);
+      });
+  };
+
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <Header />
@@ -136,10 +150,13 @@ export default function CashierScreen() {
               </div>
             </div>
 
-            {/* Categories List */}
             <div className="grid grid-cols-5 gap-4 mb-6 mt-3">
               {categories.map((category) => (
-                <button key={category.cid} className="btn-categories">
+                <button
+                  key={category._id}
+                  className="btn-categories"
+                  onClick={() => handleCategorySelect(category._id)} // Gọi API khi chọn category
+                >
                   {category.category_name}
                 </button>
               ))}
@@ -149,7 +166,7 @@ export default function CashierScreen() {
             <div className="grid grid-cols-5 gap-4">
               {products.map((product) => (
                 <div
-                  key={product.pid}
+                  key={product._id}
                   className="bg-white rounded-lg shadow p-4 cursor-pointer"
                   onClick={() => handleAddToCart(product)}
                 >
@@ -186,7 +203,7 @@ export default function CashierScreen() {
             <table className="w-full text-left mb-6">
               <thead>
                 <tr>
-                  <th className="border-b py-2">Product Name</th>
+                  <th className="border-b py-2">Name</th>
                   <th className="border-b py-2">Price</th>
                   <th className="border-b py-2">Quantity</th>
                   <th className="border-b py-2">Total</th>
