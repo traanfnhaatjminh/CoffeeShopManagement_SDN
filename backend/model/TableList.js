@@ -9,7 +9,8 @@ const tableList = new Schema({
     status: {
         type: Boolean,
         required: true
-    }
+    },
+    _id:false
     //false: hết bàn 
     //true: còn bàn
 });

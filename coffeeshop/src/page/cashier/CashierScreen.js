@@ -5,67 +5,72 @@ import Header from '../../components/common/header';
 import { IoSearch } from 'react-icons/io5';
 import axios from 'axios';
 
-const people = [
-  'Dries Vincent',
-  'Leslie Alexander',
-  'Michael Foster',
-  'Lindsay Walton',
-  'Courtney Henry',
-  'Tom Cook',
-  'Whitney Francis',
-];
-const tables = [
-  { id: 1, status: 'available' },
-  { id: 2, status: 'occupied' },
-  { id: 3, status: 'available' },
-  { id: 4, status: 'occupied' },
-  { id: 5, status: 'available' },
-];
 export default function CashierScreen() {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const [filteredPeople, setFilteredPeople] = useState(people);
   const inputRef = useRef(null);
   const [selectedTable, setSelectedTable] = useState(null);
   const [cart, setCart] = useState([]);
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [tables, setTables] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [noResultsMessage, setNoResultsMessage] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
   useEffect(() => {
-    setFilteredPeople(people.filter((person) => person.toLowerCase().includes(searchTerm.toLowerCase())));
+    // Fetch categories, products, and tables when the component mounts
+    const fetchData = async () => {
+      try {
+        const categoriesResponse = await axios.get('/categories/list');
+        setCategories(categoriesResponse.data);
+
+        const productsResponse = await axios.get('/products/list');
+        setProducts(productsResponse.data);
+
+        const tablesResponse = await axios.get('/tables/list');
+        setTables(tablesResponse.data);
+
+        setFilteredProducts(productsResponse.data); // Initialize filteredProducts with all products
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    // Filter products based on the search term
+    const results = products.filter((product) => {
+      // Check if category filter is applied
+      const categoryMatch = selectedCategory
+        ? product.category_id === selectedCategory
+        : true;
+
+      // Check if product name matches the search term
+      const nameMatch = product.pname.toLowerCase().includes(searchTerm.toLowerCase());
+
+      // Return true if both conditions are met
+      return categoryMatch && nameMatch;
+    });
+
+    setFilteredProducts(results);
+    if (searchTerm === '') {
+      handleCategorySelect(selectedCategory);
+    }
+    if (results.length === 0 && searchTerm !== '') {
+      setNoResultsMessage('Đồ uống không có trong menu hoặc trong phân loại đồ uống!'); // Message when no drinks are found
+    }
+    else {
+      setNoResultsMessage('');
+    }
+
     if (isOpen && inputRef.current) {
       inputRef.current.focus();
     }
-
-    axios.get('/categories/list')
-      .then((response) => {
-        setCategories(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching categories:', error);
-      });
-
-    axios
-      .get("/products/list")
-      .then((response) => {
-        setProducts(response.data); // Set the fetched products to state
-      })
-      .catch((error) => {
-        console.error("Error fetching products:", error);
-      });
-
-    axios
-      .get("/tables/list")
-      .then((response) => {
-        setTables(response.data); // Set the fetched products to state
-      })
-      .catch((error) => {
-        console.error("Error fetching tables:", error);
-      });
-
-  }, [searchTerm, isOpen]);
+  }, [searchTerm, products, isOpen, selectedCategory]); // Include selectedCategory as a dependency
 
   const handleTableSelect = (table, index) => {
     if (table.status === true) {
@@ -104,25 +109,28 @@ export default function CashierScreen() {
   };
 
   const handleCategorySelect = (categoryId) => {
-    console.log("Selected Category ID:", categoryId);  // Kiểm tra ID được chọn
-
-    axios.get(`/products/getByCategory/${categoryId}`)
-      .then((response) => {
-        console.log("Products by category:", response.data);  // Kiểm tra dữ liệu trả về
-        setProducts(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching products by category:', error);
-      });
+    if (categoryId === "all") {
+      setFilteredProducts(products);
+      setSelectedCategory(null); // Clear selected category
+    } else {
+      setSelectedCategory(categoryId); // Set the selected category
+      axios.get(`/products/getByCategory/${categoryId}`)
+        .then((response) => {
+          console.log("Products by category:", response.data); // Log fetched products
+          setFilteredProducts(response.data); // Reset filtered products
+        })
+        .catch((error) => {
+          console.error('Error fetching products by category:', error);
+        });
+    }
   };
-
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <Header />
 
       {/* Main content */}
-      <main className=" flex flex-1 ">
+      <main className="flex flex-1">
         <Sidebar />
 
         {/* Menu and Cart */}
@@ -131,7 +139,7 @@ export default function CashierScreen() {
           <section className="flex-1">
             <div className="flex">
               <h2 className="text-lg font-bold flex-1">Menu</h2>
-              <div className=" relative flex flex-1 justify-end">
+              <div className="relative flex flex-1 justify-end">
                 <input
                   ref={inputRef}
                   type="text"
@@ -151,11 +159,18 @@ export default function CashierScreen() {
             </div>
 
             <div className="grid grid-cols-5 gap-4 mb-6 mt-3">
-              {categories.map((category) => (
+              <button
+                key={'all'}
+                className="btn-categories"
+                onClick={() => handleCategorySelect("all")} // Call API when category is selected
+              >
+                Tất cả
+              </button>
+              {categories.map((category, index) => (
                 <button
-                  key={category._id}
+                  key={index}
                   className="btn-categories"
-                  onClick={() => handleCategorySelect(category._id)} // Gọi API khi chọn category
+                  onClick={() => handleCategorySelect(category._id)} // Call API when category is selected
                 >
                   {category.category_name}
                 </button>
@@ -164,17 +179,23 @@ export default function CashierScreen() {
 
             {/* Drinks List */}
             <div className="grid grid-cols-5 gap-4">
-              {products.map((product) => (
-                <div
-                  key={product._id}
-                  className="bg-white rounded-lg shadow p-4 cursor-pointer"
-                  onClick={() => handleAddToCart(product)}
-                >
-                  <img src={product.image} alt={product.pname} className="mb-4 rounded" />
-                  <h3 className="text-items">{product.pname}</h3>
-                  <p className="text-price">{product.price} VND</p>
+              {filteredProducts.length > 0 ? (
+                filteredProducts.map((product) => (
+                  <div
+                    key={product._id}
+                    className="bg-white rounded-lg shadow p-4 cursor-pointer"
+                    onClick={() => handleAddToCart(product)}
+                  >
+                    <img src={product.image} alt={product.pname} className="mb-4 rounded" />
+                    <h3 className="text-items">{product.pname}</h3>
+                    <p className="text-price">{product.price} VND</p>
+                  </div>
+                ))
+              ) : (
+                <div className="col-span-5 text-center text-red-600">
+                  {noResultsMessage}
                 </div>
-              ))}
+              )}
             </div>
           </section>
 
@@ -237,22 +258,16 @@ export default function CashierScreen() {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="4" className="py-4 text-center">
-                      No items in cart
-                    </td>
+                    <td colSpan="4" className="py-2 text-center">No items in cart</td>
                   </tr>
                 )}
               </tbody>
             </table>
 
-            <div className="flex justify-between items-center mb-4">
-              <span className="text-lg font-semibold">Total Price:</span>
-              <span className="text-lg font-semibold">{calculateTotalPrice()} VND</span>
+            <div className="flex justify-between font-bold">
+              <span>Total:</span>
+              <span>{calculateTotalPrice()} VND</span>
             </div>
-
-            <button className="w-full bg-brown-500 text-black py-2 px-4 rounded hover:bg-orange-400">
-              Create Bill
-            </button>
           </section>
         </div>
       </main>

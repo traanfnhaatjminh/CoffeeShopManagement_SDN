@@ -29,14 +29,31 @@ const getAllProduct = async (req, res, next) => {
     }
 };
 
-const getProductsByCategory = async (req, res) => {
+const getProductsByCategory = async (req, res, next) => {
     try {
         const { categoryId } = req.params;
-        const products = await Product.find({ category_id: mongoose.Types.ObjectId(categoryId) }); // Fetch all categories from the DB
+
+        console.log("Category ID from request:", categoryId);
+
+        // Check if categoryId is a valid ObjectId
+        if (!mongoose.Types.ObjectId.isValid(categoryId)) {
+            return res.status(400).json({ message: "Invalid category ID" });
+        }
+
+        // Query the products by category_id
+        const products = await Product.find({ category_id: categoryId });
+        console.log("Products found:", products);
+
+        if (products.length === 0) {
+            return res.status(404).json({ message: "No products found for this category." });
+        }
+
         res.status(200).json(products);
     } catch (error) {
-        next(error);
+        console.error('Error in getProductsByCategory:', error);  // Log the error
+        return res.status(500).json({ message: "An error occurred while fetching products." });
     }
 };
+
 
 module.exports = { createNewProduct, getAllProduct, getProductsByCategory };
