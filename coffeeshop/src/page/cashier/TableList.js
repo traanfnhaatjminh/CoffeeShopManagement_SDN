@@ -1,27 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from '../../components/common/sidebar';
 import Header from '../../components/common/header';
 import { IoSearch } from 'react-icons/io5';
 import data from '../../data/database.json';
+import axios from 'axios';
 
 export default function TableList() {
   const [selectedTable, setSelectedTable] = useState(null); // State để lưu bàn được chọn
   const [paymentMethod, setPaymentMethod] = useState(''); // State để lưu phương thức thanh toán
+  const [tableList, setTableList] = useState([]);
+  const [billList, setBillList] = useState([]);
 
-  const tables = data.tablelist.map((table) => ({
-    tableID: table.table_id,
-    numberOfChair: table.number_of_chair,
-    status: table.status,
-    bill: [
-      { item: 'Trà Sữa', price: 30000, quantity: 2 },
-      { item: 'Cà Phê', price: 40000, quantity: 1 },
-    ],
-  }));
+  const loadData = async () => {
+    try {
+      const response = await axios.get('/tableList');
+      setTableList(response.data);
+      const responseBill = await axios.get('/bill');
+      setBillList(responseBill.data);
+    } catch (error) {
+      console.error('Error loading:', error);
+    }
+  };
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  console.log(billList, 'jugggj');
 
   // Hàm xử lý khi chọn bàn
   const handleTableClick = (table) => {
-    if (table.status === 1) {
-      setSelectedTable(table);
+    if (table.status === true) {
+      const selectBill=billList.find(bill=>bill.table_id===table._id)
+      
+      setSelectedTable({...table,bill: selectBill ? selectBill.product_list:[]});
       setPaymentMethod(''); // Reset phương thức thanh toán khi chọn bàn mới
     } else {
       setSelectedTable(null); // Nếu bàn trống, không hiển thị hóa đơn
@@ -60,18 +71,17 @@ export default function TableList() {
 
             {/* Table List */}
             <div className="grid grid-cols-5 gap-4 p-4">
-              {tables.map((table) => (
+              {tableList.map((table) => (
                 <div
                   key={table.tableID}
-                  onClick={() => handleTableClick(table)} // Add click event for table selection
+                  onClick={() => handleTableClick(table)}
                   className={`bg-white rounded-lg shadow p-4 h-40 w-32 flex flex-col items-center justify-center cursor-pointer ${
-                    table.status === 0 ? 'bg-red-100' : 'bg-green-100'
+                    table.status === false ? 'bg-red-100' : 'bg-green-100'
                   }`}
                 >
-                  <h3 className="text-center font-bold text-xl">Bàn {table.tableID}</h3>
-                  <p className="text-sm">Số ghế: {table.numberOfChair}</p>
-                  <p className={`text-xs font-semibold ${table.status === 0 ? 'text-green-500' : 'text-red-500'}`}>
-                    {table.status === 0 ? 'Đang trống' : 'Đang có khách'}
+                  <h3 className="text-center font-bold text-xl">Bàn {table.number_name}</h3>
+                  <p className={`text-xs font-semibold ${table.status === false ? 'text-green-500' : 'text-red-500'}`}>
+                    {table.status === false ? 'Đang trống' : 'Đang có khách'}
                   </p>
                 </div>
               ))}
@@ -97,7 +107,7 @@ export default function TableList() {
                     {selectedTable.bill.map((item, index) => (
                       <tr key={index}>
                         <td className="py-2">{item.item}</td>
-                        <td className="py-2">{item.price.toLocaleString()} VND</td>
+                        <td className="py-2">{item.total_price.toLocaleString()} VND</td>
                         <td className="py-2">{item.quantity}</td>
                       </tr>
                     ))}
@@ -106,7 +116,7 @@ export default function TableList() {
                 <div className="flex justify-between items-center mb-4">
                   <span className="text-lg font-semibold">Tổng tiền:</span>
                   <span className="text-lg font-semibold">
-                    {selectedTable.bill.reduce((total, item) => total + item.price * item.quantity, 0).toLocaleString()}{' '}
+                    {selectedTable.bill.reduce((total, item) => total + item.total_price * item.quantity, 0).toLocaleString()}{' '}
                     VND
                   </span>
                 </div>

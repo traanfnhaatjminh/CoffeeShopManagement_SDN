@@ -2,11 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const billSchema = new Schema({
-    bill_id: {
-        type: Number,
-        required: true,
-        unique: true
-    },
+  
     created_time: {
         type: Date,
         required: true,
@@ -23,25 +19,39 @@ const billSchema = new Schema({
     },
     table_id: {
         type: Schema.Types.ObjectId,
-        ref: 'Dinnertable'
+        ref: 'TableList'
     },
     payment: String,
     status: Number,
+    discount: Number,
     product_list: [{
-        product: {
+        productId: {
             type: Schema.Types.ObjectId,
             ref: 'Product',
             required: true
         },
-        quantity: {
+        nameP:{
+            type: String,
+            required: true
+        },
+       imageP:{
+        type: String,
+        required: true
+       }
+        ,
+        quantityP: {
             type: Number,
             required: true
         },
-        total_price: {
+        priceP: {
             type: Number,
             required: true
-        }
+        },
+        totalPrice:{
+            type:Number,
+            required:true
+            }
     }]
 });
-
-module.exports = mongoose.model('Bill', billSchema);
+const Bill= mongoose.model('Bill', billSchema);
+module.exports = Bill;

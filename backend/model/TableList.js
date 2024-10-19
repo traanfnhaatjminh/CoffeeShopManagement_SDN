@@ -2,19 +2,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const tableList = new Schema({
-    table_id: {
-        type: Number,
+    number_name: {
+        type: String,
         required: true,
         unique: true
     },
-    number_of_chair: {
-        type: Number,
-        required: true
-    },
     status: {
-        type: Number,
+        type: Boolean,
         required: true
     }
 });
-
-module.exports = mongoose.model('TableList', tableList);
+const Table= mongoose.model('TableList', tableList);
+module.exports = Table

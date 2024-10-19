@@ -72,6 +72,12 @@ export default function BillList() {
                     scope="col"
                     className="sticky top-0 z-10 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50"
                   >
+                    Sản phẩm
+                  </th>
+                  <th
+                    scope="col"
+                    className="sticky top-0 z-10 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50"
+                  >
                     Giảm giá
                   </th>
                   <th
@@ -99,7 +105,8 @@ export default function BillList() {
                   <tr key={transaction.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{transaction.id}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{transaction.company}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{transaction.share}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{transaction.share}</td>{' '}
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{transaction.commision}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{transaction.commision}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{transaction.price}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{transaction.quantity}</td>

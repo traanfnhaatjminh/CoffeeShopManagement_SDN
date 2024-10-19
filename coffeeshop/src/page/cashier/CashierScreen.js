@@ -31,15 +31,14 @@ export default function CashierScreen() {
   const [selectedTable, setSelectedTable] = useState(null);
   const [cart, setCart] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [product, setProducts] = useState([]);
 
   const products = data.products;
+  
   const tables = data.tablelist;
 
   useEffect(() => {
-    setFilteredPeople(people.filter((person) => person.toLowerCase().includes(searchTerm.toLowerCase())));
-    if (isOpen && inputRef.current) {
-      inputRef.current.focus();
-    }
+    
 
     axios.get('/createbill')
       .then((response) => {
@@ -48,8 +47,15 @@ export default function CashierScreen() {
       .catch((error) => {
         console.error('Error fetching categories:', error);
       });
-  }, [searchTerm, isOpen]);
+  }, []);
 
+  const handleSearchItem=(value)=>{
+       setSearchTerm(value);
+    const filteredProducts = products.filter((item) => {
+      return item.pname.toLowerCase().includes(searchTerm.toLowerCase());
+      });
+   setProducts(filteredProducts);
+  }
   const handleTableSelect = (table) => {
     if (table.status === 0) {
       // Only allow if table is available
@@ -102,16 +108,14 @@ export default function CashierScreen() {
               <h2 className="text-lg font-bold flex-1">Menu</h2>
               <div className=" relative flex flex-1 justify-end">
                 <input
-                  ref={inputRef}
+              
                   type="text"
                   className="relative w-2/3
                    bg-white border border-gray-300 rounded-md pl-3 pr-10 py-2 text-left cursor-default focus-within:outline-none focus-within:ring-1 focus-within:ring-indigo-500 focus-within:border-indigo-500 sm:text-sm"
-                  placeholder={selected}
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  onFocus={() => setIsOpen(true)}
-                  onBlur={() => setTimeout(() => setIsOpen(false), 200)}
-                  onClick={() => setIsOpen(true)}
+                  placeholder="search"
+                   value={searchTerm}
+                  onChange={(e) => handleSearchItem(e.target.value)}
+                
                 />
                 <span className="absolute inset-y-0 right-0 flex items-center pr-2 ">
                   <IoSearch />
