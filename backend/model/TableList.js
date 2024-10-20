@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const tableList = new Schema({
+    _id: {
+        type: Schema.Types.ObjectId,
+    },
     number_of_chair: {
         type: Number,
         required: true
@@ -9,8 +12,7 @@ const tableList = new Schema({
     status: {
         type: Boolean,
         required: true
-    },
-    _id:false
+    }
     //false: hết bàn 
     //true: còn bàn
 });
