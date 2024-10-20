@@ -1,8 +1,7 @@
-const UnAuthenticatedError = require("../errors/unauthenticated");
 const jwt = require("jsonwebtoken");
 const { StatusCodes } = require("http-status-codes");
-const User = require("../model/user");
 const asyncHandle = require("express-async-handler");
+const db = require("../model/index");
 
 const protectRouter = asyncHandle(async (req, res, next) => {
     let token;
@@ -20,9 +19,27 @@ const protectRouter = asyncHandle(async (req, res, next) => {
             success: false,
             message: "Unauthorised user! You do not have permission right here",
         });
-        // throw new UnAuthenticatedError("You do not have permission right here");
     }
-    const decoderToken = jwt.verify(token, process.env.JWT_ACCESS_TOKEN_SECRET);
-    const user = await User.findOne({ _id: decoderToken.userId });
-    req.user = user;
+    try {
+        const decoderToken = jwt.verify(
+            token,
+            process.env.JWT_ACCESS_TOKEN_SECRET
+        );
+        const user = await db.User.findOne({ _id: decoderToken.id });
+        req.user = user;
+        next();
+    } catch (error) {
+        if (error.name === "TokenExpiredError") {
+            return res.status(StatusCodes.UNAUTHORIZED).json({
+                success: false,
+                message: "Token has expired, please log in again",
+            });
+        }
+        return res.status(StatusCodes.FORBIDDEN).json({
+            success: false,
+            message: "Token invalid",
+        });
+    }
 });
+
+module.exports = protectRouter;

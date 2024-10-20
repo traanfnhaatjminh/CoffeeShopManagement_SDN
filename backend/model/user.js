@@ -9,7 +9,7 @@ const UserSchema = new Schema(
         phone: { type: String, unique: true },
         address: { type: String },
         avatar: { type: String },
-        role: { type: Object, require: true },
+        role: { type: Schema.Types.ObjectId, require: true, ref: "Role" },
         status: { type: Boolean },
     },
     { timestamps: true }
