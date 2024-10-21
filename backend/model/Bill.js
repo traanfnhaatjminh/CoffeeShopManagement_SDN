@@ -2,10 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const billSchema = new Schema({
-    bill_id: {
-        type: Number,
-        required: true,
-        unique: true
+    _id: {
+        type: Schema.Types.ObjectId,  
     },
     created_time: {
         type: Date,
@@ -37,12 +35,12 @@ const billSchema = new Schema({
             type: Number,
             required: true
         },
-        total_price: {
+        total: {
             type: Number,
             required: true
-        }
-    }],
-    _id:false
+        },
+        _id: false
+    }]
 });
 
 module.exports = mongoose.model('Bill', billSchema);

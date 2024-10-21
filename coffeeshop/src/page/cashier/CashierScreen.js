@@ -18,6 +18,7 @@ export default function CashierScreen() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [noResultsMessage, setNoResultsMessage] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     // Fetch categories, products, and tables when the component mounts
@@ -37,7 +38,6 @@ export default function CashierScreen() {
         console.error('Error fetching data:', error);
       }
     };
-
     fetchData();
   }, []);
 
@@ -75,14 +75,14 @@ export default function CashierScreen() {
   const handleTableSelect = (table, index) => {
     if (table.status === true) {
       // Only allow if table is available
-      setSelectedTable(index + 1);
+      setSelectedTable(index);
     }
   };
 
   const handleAddToCart = (product) => {
     const existingProduct = cart.find((item) => item._id === product._id);
     if (existingProduct) {
-      setCart(cart.map((item) => (item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item)));
+      setCart(cart.map((item) => (item._id === product._id ? { ...item, quantity: item.quantity + 1, total: (item.quantity + 1) * item.price } : item)));
     } else {
       setCart([...cart, { ...product, quantity: 1, total: product.price }]);
     }
@@ -111,7 +111,7 @@ export default function CashierScreen() {
   const handleCategorySelect = (categoryId) => {
     if (categoryId === "all") {
       setFilteredProducts(products);
-      setSelectedCategory(null); // Clear selected category
+      setSelectedCategory(categoryId); // Clear selected category
     } else {
       setSelectedCategory(categoryId); // Set the selected category
       axios.get(`/products/getByCategory/${categoryId}`)
@@ -122,6 +122,32 @@ export default function CashierScreen() {
         .catch((error) => {
           console.error('Error fetching products by category:', error);
         });
+    }
+  };
+
+  const handleCreateBill = async () => {
+    try {
+      const billData = {
+        total_cost: calculateTotalPrice(),
+        table_id: tables[selectedTable]._id,
+        product_list: cart.map((item) => ({
+          product: item._id,
+          quantity: item.quantity,
+          total: item.total
+        })),
+        payment: null,
+        status: 0
+      };
+
+      const response = await axios.post('/bills/createBill', billData);
+      console.log('Bill created successfully:', response.data);
+
+      const tableId = tables[selectedTable]._id;
+      await axios.put(`/tables/updateStatus/${tableId}`, { status: false });
+
+      setSuccessMessage('Create bill successfully.');
+    } catch (error) {
+      console.error('Error creating bill:', error);
     }
   };
 
@@ -161,19 +187,21 @@ export default function CashierScreen() {
             <div className="grid grid-cols-5 gap-4 mb-6 mt-3">
               <button
                 key={'all'}
-                className="btn-categories"
-                onClick={() => handleCategorySelect("all")} // Call API when category is selected
+                className={`btn-categories ${selectedCategory === 'all' ? 'bg-dark font-bold' : ''}`}
+                onClick={() => handleCategorySelect("all")}
               >
                 Tất cả
               </button>
+
               {categories.map((category, index) => (
                 <button
                   key={index}
-                  className="btn-categories"
-                  onClick={() => handleCategorySelect(category._id)} // Call API when category is selected
+                  className={`btn-categories ${selectedCategory === category._id ? 'bg-dark font-bold' : ''}`}
+                  onClick={() => handleCategorySelect(category._id)}
                 >
                   {category.category_name}
                 </button>
+
               ))}
             </div>
 
@@ -208,7 +236,7 @@ export default function CashierScreen() {
               {tables.map((table, index) => (
                 <div
                   key={table._id}
-                  className={`table ${table.status === true ? 'available' : 'occupied'}`}
+                  className={`table ${selectedTable === index ? 'bg-selected' : (table.status === true ? 'available' : 'occupied')}`}
                   onClick={() => handleTableSelect(table, index)}
                   style={{
                     cursor: table.status === true ? 'pointer' : 'not-allowed',
@@ -216,10 +244,9 @@ export default function CashierScreen() {
                 >
                   <span>{index + 1}</span>
                 </div>
+
               ))}
             </div>
-
-            {selectedTable && <p className="text-lg font-bold mb-4">Selected Table: {selectedTable}</p>}
 
             <table className="w-full text-left mb-6">
               <thead>
@@ -268,6 +295,18 @@ export default function CashierScreen() {
               <span>Total:</span>
               <span>{calculateTotalPrice()} VND</span>
             </div>
+            <button style={{ marginTop: "5%" }}
+              className="w-full bg-blue-500 text-white py-2 rounded disabled:bg-gray-300"
+              disabled={cart.length === 0 || selectedTable === null}
+              onClick={handleCreateBill}
+            >
+              Create Bill
+            </button>
+            {successMessage && (
+              <div className="text-green-600 font-bold mt-4">
+                {successMessage}
+              </div>
+            )}
           </section>
         </div>
       </main>

@@ -12,6 +12,7 @@ const { StatusCodes } = require("http-status-codes");
 const CategoryRouter = require("./router/category.route");
 const ProductRouter = require("./router/product.route");
 const TableRouter = require("./router/tablelist.route");
+const BillRouter = require("./router/bill.route");
 const authRouter = require("./router/auth/auth.routers");
 
 const HOST = process.env.HOSTNAME;
@@ -45,6 +46,7 @@ app.get("/", async (req, res, next) => {
 app.use("/categories", CategoryRouter);
 app.use("/products", ProductRouter);
 app.use("/tables", TableRouter);
+app.use("/bills", BillRouter);
 app.use("/api/auth", authRouter);
 
 app.use("/", async (req, res, next) => {
