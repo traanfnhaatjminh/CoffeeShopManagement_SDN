@@ -1,12 +1,12 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { StatusCodes } = require("http-status-codes");
-const User = require("../../model/user");
+const db = require("../../model/index");
 
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
     try {
-        const checkUser = await User.findOne({ email });
+        const checkUser = await db.User.findOne({ email });
         if (!checkUser)
             return res.json({
                 success: false,
@@ -28,7 +28,7 @@ const loginUser = async (req, res) => {
                 email: checkUser.email,
                 fullName: checkUser.fullName,
             },
-            "JWT_ACCESS_TOKEN_SECRET",
+            process.env.JWT_ACCESS_TOKEN_SECRET,
             { expiresIn: "60m" }
         );
         res.cookie("token", token, { httpOnly: true, secure: false }).json({
@@ -38,15 +38,49 @@ const loginUser = async (req, res) => {
                 email: checkUser.email,
                 role: checkUser.role,
                 id: checkUser._id,
-                userName: checkUser.userName,
+                userName: checkUser.fullName,
             },
         });
     } catch (err) {
+        console.log(err);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             success: false,
             message: "Some error service false",
         });
     }
 };
-
-module.exports = { loginUser };
+const updatePassword = async (req, res) => {
+    const { email, newPassword } = req.body;
+    try {
+        const checkUser = await db.User.findOne({ email });
+        if (!checkUser)
+            return res.json({
+                success: false,
+                message: "User doesn't exits! Please register first",
+            });
+        const changeNewPassword = await bcrypt.hash(newPassword, 12);
+        checkUser.password = changeNewPassword;
+        await checkUser.save();
+        res.status(StatusCodes.OK).json({
+            success: true,
+            message: "Update success",
+            data: {
+                email: checkUser.email,
+                role: checkUser.role,
+                id: checkUser._id,
+                userName: checkUser.fullName,
+            },
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: "Some error service false",
+        });
+    }
+};
+const authController = {
+    loginUser,
+    updatePassword,
+};
+module.exports = authController;

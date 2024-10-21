@@ -14,6 +14,7 @@ const ProductRouter = require("./router/product.route");
 const TableRouter = require("./router/tablelist.route");
 const BillRouter = require("./router/bill.route");
 const authRouter = require("./router/auth/auth.routers");
+const router = require("./router/index");
 
 const HOST = process.env.HOSTNAME;
 const POST = process.env.POST;
