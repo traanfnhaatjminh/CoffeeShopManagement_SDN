@@ -49,6 +49,7 @@ const loginUser = async (req, res) => {
         });
     }
 };
+
 const updatePassword = async (req, res) => {
     const { email, newPassword } = req.body;
     try {
