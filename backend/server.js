@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const express = require("express");
+const multer = require('multer');
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const httpErrors = require("http-errors");
@@ -19,6 +20,8 @@ const router = require("./router/index");
 const HOST = process.env.HOSTNAME;
 const POST = process.env.POST;
 const app = express();
+
+  app.use('/uploads', express.static('uploads'));
 
 app.use(
     cors({
@@ -41,7 +44,7 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 app.get("/", async (req, res, next) => {
-    res.status(StatusCodes.OK).json({ message: "Welcome to Group 5" });
+    res.status(StatusCodes.OK).json({ message: "Welcome to Group 6" });
 });
 
 app.use("/categories", CategoryRouter);
