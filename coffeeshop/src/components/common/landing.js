@@ -7,7 +7,6 @@ function LandingPage() {
     <div className="min-h-screen bg-gradient-to-r from-yellow-100 to-orange-200">
       <header className="flex justify-between items-center p-6">
         <div className="text-xl font-bold text-gray-700 flex items-center space-x-2">
-          <span>logo</span>
         </div>
       </header>
 

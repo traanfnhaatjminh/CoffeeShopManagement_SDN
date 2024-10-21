@@ -46,12 +46,11 @@ const billSchema = new Schema({
         priceP: {
             type: Number,
             required: true
-        },
-        totalPrice:{
-            type:Number,
-            required:true
-            }
-    }]
+
+        }
+    }],
+    _id:false
+
 });
 const Bill= mongoose.model('Bill', billSchema);
 module.exports = Bill;

@@ -21,8 +21,11 @@ const productSchema = new Schema({
         ref: 'Category'
     },
     discount: Number,
-    status: Number
+    status: Number,
+    _id: false
 });
 
 const Product = mongoose.model('Product', productSchema);
+
 module.exports = Product;
+

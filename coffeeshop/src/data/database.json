@@ -15,14 +15,11 @@
   ],
   "products": [
     {
-      "pid": 1,
       "pname": "Trà Xanh Espresso Marble",
-      "description": "Cho ngày thêm tươi, tỉnh, êm, mượt với Trà Xanh Espresso Marble. Đây là sự mai mối bất ngờ giữa trà xanh Tây Bắc vị mộc và cà phê Arabica Đà Lạt.",
-      "unit": "gram",
       "quantity": 50,
       "price": 49000.0,
       "image": "https://product.hstatic.net/1000075078/product/1703471714_bg-vang-tra-xanh-espresso-marble_c2623bb396f44e41ad55b53c94b7fadb_large.jpg",
-      "category_id": 1,
+      "category_id": "67080d9d51d0e3fa253937c7",
       "discount": 0.0,
       "status": 1
     },
@@ -46,7 +43,7 @@
       "quantity": 50,
       "price": 45000.0,
       "image": "https://product.hstatic.net/1000075078/product/1686716532_dd-suada_c180c6187e644babbac7019a2070231e_large.jpg",
-      "category_id": 2,
+      "category_id": "67080d9d51d0e3fa253937c7",
       "discount": 0.0,
       "status": 1
     },
