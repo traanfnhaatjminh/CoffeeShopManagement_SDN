@@ -10,7 +10,7 @@ const tableList = new Schema({
     },
     status: {
         type: Boolean,
-        required: true
+        default: true
     },
     _id:false
     //false: hết bàn 
