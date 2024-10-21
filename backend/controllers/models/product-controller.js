@@ -1,10 +1,12 @@
 const Product = require("../../model/Product");
 const mongoose = require("mongoose");
+const { v4: uuidv4 } = require('uuid');
 
 const createNewProduct = async (req, res) => {
     try {
         const { pname, quantity, price, image, category_id, discount, status } = req.body;
-        const newProduct = new Product({ pname, quantity, price, image, category_id, discount, status });
+        const pId = uuidv4();  // Generate a unique ID
+        const newProduct = new Product({ _id: pId, pname, quantity, price, image, category_id, discount, status });
 
         const savedProduct = await newProduct.save();
         res.status(201).json({

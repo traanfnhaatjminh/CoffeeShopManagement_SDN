@@ -5,7 +5,7 @@ const Table = require("../../model/TableList");
 
 const postBill= async(req, res)=>{
     try {
-        const { created_time, updated_time, total_cost, table_id, payment, status, product_list } = req.body;
+        const { created_time, updated_time, total_cost, table_id, payment,discount, status, product_list } = req.body;
     
         // Tạo hóa đơn mới
         const newBill = new Bill({
@@ -15,6 +15,7 @@ const postBill= async(req, res)=>{
           table_id,
           payment,
           status,
+          discount,
           product_list,
         });
     
@@ -36,23 +37,23 @@ const postBill= async(req, res)=>{
         });
       }
 }
+const getBill = async (req, res, next) => {
+  try {
+      const { id } = req.params;  // Lấy `id` từ URL
 
-const getBill= async (req,res) =>{
-    try {
-        const { tableId } = req.params;
-    
-        // Tìm hóa đơn theo table_id
-        const bill = await Bill.findOne({ table_id: tableId }).populate('product_list.productId');
-    
-        if (!bill) {
+      // Tìm hóa đơn theo table_id
+      const bill = await Bill.findOne({ table_id: id }).populate('product_list.productId');
+  
+      if (!bill) {
           return res.status(404).json({ message: "No bill found for this table" });
-        }
-    
-        res.status(200).json(bill);
-      } catch (error) {
-        next(error);
       }
-}
+  
+      res.status(200).json(bill);
+  } catch (error) {
+      next(error);  // Đảm bảo truyền lỗi vào middleware xử lý lỗi
+  }
+};
+
 
 const postBillUpdate= async (req, res) =>{
     try {
@@ -73,4 +74,15 @@ const postBillUpdate= async (req, res) =>{
         next(error);
       } 
 }
-module.exports= {postBill, postBillUpdate, getBill};
+const getAllBill= async( req, res)=>{
+try {
+      const billlist = await Bill.find();
+      res.status(200).json(billlist);
+    } catch (error) {
+      next(error);
+    }
+
+}
+
+
+module.exports = { postBill, getBill, postBillUpdate, getAllBill };

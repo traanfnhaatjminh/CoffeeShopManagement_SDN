@@ -1,12 +1,13 @@
 const Category = require("../../model/Category");
+const mongoose = require('mongoose');  // To create an ObjectId
 
 const createNewCategory = async (req, res, next) => {
     try {
         // Extract data from req.body
         const { group_name, category_name } = req.body;
+        const cId = new mongoose.Types.ObjectId();
 
-        //Lấy dữ liệu từ request từ client
-        const newCategory = new Category({ group_name, category_name });
+        const newCategory = new Category({ _id: cId, group_name, category_name });
         await newCategory.save().then(newDoc => {
             res.status(201).json({
                 message: "Insert successfully.",

@@ -4,7 +4,7 @@ const Bill = require("../model/Bill");
 
 const billRouter = express.Router();
 billRouter.use(bodyParser.json());
-const {postBill,getBill,postBillUpdate}= require("../controllers/models/bill-controller")
+const {postBill,getBill,postBillUpdate, getAllBill}= require("../controllers/models/bill-controller")
 // ///// get all bill
 
 // billRouter.get("/", async (req, res, next) => {
@@ -58,8 +58,8 @@ const {postBill,getBill,postBillUpdate}= require("../controllers/models/bill-con
 //     next(error);
 //   }
 // });
-
+billRouter.get("", getAllBill)
 billRouter.post("/createBill",postBill );
-billRouter.get("/table/:tableId", getBill)
+billRouter.get("/table/:id", getBill)
 billRouter.post("/payment/:billId",postBillUpdate)
 module.exports= billRouter;

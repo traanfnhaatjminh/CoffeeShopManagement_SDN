@@ -47,10 +47,11 @@ const billSchema = new Schema({
             type: Number,
             required: true
 
-        }
-    }],
-    _id:false
+        },
+        _id:false
 
+    }],
+    
 });
 const Bill= mongoose.model('Bill', billSchema);
 module.exports = Bill;

@@ -1,15 +1,19 @@
 .btn-sibebar {
   @apply w-full py-2 px-4  bg-gray-300 hover:bg-gray-400 rounded text-center;
 }
+
 .text-items {
   @apply text-sm font-semibold;
 }
+
 .text-price {
   @apply text-sm  text-red-600;
 }
+
 .btn-categories {
   @apply bg-brown-500 text-black py-2 px-4 rounded hover:bg-orange-400;
 }
+
 .table {
   width: 70px; /* Điều chỉnh kích thước bàn */
   height: 70px; /* Điều chỉnh chiều cao bàn */

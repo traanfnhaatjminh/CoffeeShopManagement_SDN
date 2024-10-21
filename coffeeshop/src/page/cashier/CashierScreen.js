@@ -5,25 +5,19 @@ import Header from '../../components/common/header';
 import { IoSearch } from 'react-icons/io5';
 import axios from 'axios';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, createBill, setSelectedTable, updateQuantity } from '../../store/cart-slice/cartSlice'; 
 export default function CashierScreen() {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const inputRef = useRef(null);
-  // const [selectedTable, setSelectedTable] = useState(null);
-  // const [cart, setCart] = useState([]);
+  const [selectedTable, setSelectedTable] = useState(null);
+  const [cart, setCart] = useState([]);
   const [categories, setCategories] = useState([]);
-
   const [products, setProducts] = useState([]);
   const [tables, setTables] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [noResultsMessage, setNoResultsMessage] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
-
-  const dispatch = useDispatch();
-  const { cart, selectedTable } = useSelector((state) => state.cart);
 
   useEffect(() => {
     // Fetch categories, products, and tables when the component mounts
@@ -78,105 +72,57 @@ export default function CashierScreen() {
     }
   }, [searchTerm, products, isOpen, selectedCategory]); // Include selectedCategory as a dependency
 
-  // const handleTableSelect = (table, index) => {
-  //   if (table.status === true) {
-
-  //     // Only allow if table is available
-  //     setSelectedTable(index + 1);
-  //   }
-  // };
-  const handleTableSelect = (table) => {
-    if (table.status) {
-      dispatch(setSelectedTable(table));
+  const handleTableSelect = (table, index) => {
+    if (table.status === true) {
+      // Only allow if table is available
+      setSelectedTable(index + 1);
     }
   };
 
-  // const handleAddToCart = (product) => {
-  //   const existingProduct = cart.find((item) => item._id === product._id);
-  //   if (existingProduct) {
-  //     setCart(cart.map((item) => (item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item)));
-  //   } else {
-  //     setCart([...cart, { ...product, quantity: 1, total: product.price }]);
-  //   }
-  // };
   const handleAddToCart = (product) => {
-    dispatch(addToCart(product));
+    const existingProduct = cart.find((item) => item._id === product._id);
+    if (existingProduct) {
+      setCart(cart.map((item) => (item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item)));
+    } else {
+      setCart([...cart, { ...product, quantity: 1, total: product.price }]);
+    }
   };
 
-  // const handleQuantityChange = (_id, change) => {
-  //   setCart(
-  //     cart
-  //       .map((item) =>
-  //         item._id === _id
-  //           ? {
-  //             ...item,
-  //             quantity: item.quantity + change,
-  //             total: (item.quantity + change) * item.price,
-  //           }
-  //           : item
-  //       )
-  //       .filter((item) => item.quantity > 0)
-  //   );
-  // };
-  const handleQuantityChange = (productId, change) => {
-    dispatch(updateQuantity({ productId, change }));
+  const handleQuantityChange = (_id, change) => {
+    setCart(
+      cart
+        .map((item) =>
+          item._id === _id
+            ? {
+              ...item,
+              quantity: item.quantity + change,
+              total: (item.quantity + change) * item.price,
+            }
+            : item
+        )
+        .filter((item) => item.quantity > 0)
+    );
   };
-  // const calculateTotalPrice = () => {
-  //   return cart.reduce((sum, item) => sum + item.total, 0);
-  // };
+
   const calculateTotalPrice = () => {
     return cart.reduce((sum, item) => sum + item.total, 0);
   };
 
-  // const handleCategorySelect = (categoryId) => {
-  //   if (categoryId === "all") {
-  //     setFilteredProducts(products);
-  //     setSelectedCategory(null); // Clear selected category
-  //   } else {
-  //     setSelectedCategory(categoryId); // Set the selected category
-  //     axios.get(`/products/getByCategory/${categoryId}`)
-  //       .then((response) => {
-  //         console.log("Products by category:", response.data); // Log fetched products
-  //         setFilteredProducts(response.data); // Reset filtered products
-  //       })
-  //       .catch((error) => {
-  //         console.error('Error fetching products by category:', error);
-  //       });
-  //   }
-  // };
   const handleCategorySelect = (categoryId) => {
-    setSelectedCategory(categoryId);
-    if (categoryId === 'all') {
+    if (categoryId === "all") {
       setFilteredProducts(products);
+      setSelectedCategory(null); // Clear selected category
     } else {
-      axios
-        .get(`/products/getByCategory/${categoryId}`)
-        .then((response) => setFilteredProducts(response.data))
-        .catch((error) => console.error('Error fetching products by category:', error));
+      setSelectedCategory(categoryId); // Set the selected category
+      axios.get(`/products/getByCategory/${categoryId}`)
+        .then((response) => {
+          console.log("Products by category:", response.data); // Log fetched products
+          setFilteredProducts(response.data); // Reset filtered products
+        })
+        .catch((error) => {
+          console.error('Error fetching products by category:', error);
+        });
     }
-  };
-  const handlePayment = () => {
-    if (!selectedTable) {
-      alert("Please select a table before proceeding to payment."); // Add validation for selected table
-      return;
-    }
-    const billData = {
-      created_time: new Date(),
-      updated_time: new Date(),
-      total_cost: calculateTotalPrice(),
-      table_id: selectedTable._id,
-      payment: 'cash',
-      status: 1,
-      product_list: cart.map((item) => ({
-        productId: item._id,
-        nameP: item.pname,
-        imageP: item.image,
-        quantityP: item.quantity,
-        priceP: item.price,
-      })),
-    };
-
-    dispatch(createBill(billData)); // Dispatch createBill action to create a new bill
   };
 
   return (
@@ -191,7 +137,7 @@ export default function CashierScreen() {
         <div className="flex space-x-6 p-4">
           {/* Menu Section */}
           <section className="flex-1">
-          <div className="flex">
+            <div className="flex">
               <h2 className="text-lg font-bold flex-1">Menu</h2>
               <div className="relative flex flex-1 justify-end">
                 <input
@@ -321,11 +267,6 @@ export default function CashierScreen() {
             <div className="flex justify-between font-bold">
               <span>Total:</span>
               <span>{calculateTotalPrice()} VND</span>
-            </div>
-            <div>
-            <button className="w-full bg-brown-400 text-black py-2 px-4 rounded hover:bg-orange-400 font-bold mt-2">
-                  Thanh toán
-                </button>
             </div>
           </section>
         </div>

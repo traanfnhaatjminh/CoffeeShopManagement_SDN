@@ -13,8 +13,11 @@ const CategoryRouter = require("./router/category.route");
 const ProductRouter = require("./router/product.route");
 const TableRouter = require("./router/tablelist.route");
 const authRouter = require("./router/auth/auth.routers");
+
 const BillRouter= require("./router/bill.route")
 
+
+const router = require("./router/index");
 
 const HOST = process.env.HOSTNAME;
 const POST = process.env.POST;
@@ -47,8 +50,8 @@ app.get("/", async (req, res, next) => {
 
 app.use("/categories", CategoryRouter);
 app.use("/products", ProductRouter);
-app.use("/tables", TableRouter);
 
+app.use("/bill", BillRouter)
 app.use("/api/auth", authRouter);
 app.use("/tableList",TableRouter)
 app.use("/product",ProductRouter)

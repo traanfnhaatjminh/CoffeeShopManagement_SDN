@@ -11,33 +11,54 @@ export default function TableList() {
   const [tableList, setTableList] = useState([]);
   const [billList, setBillList] = useState([]);
 
-  const loadData = async () => {
-    try {
-      const response = await axios.get('/tableList');
-      setTableList(response.data);
-      const responseBill = await axios.get('/bill');
-      setBillList(responseBill.data);
-    } catch (error) {
-      console.error('Error loading:', error);
-    }
-  };
   useEffect(() => {
+    const loadData = async () => {
+      try {
+        const response = await axios.get('/tableList/list');
+        setTableList(response.data);
+        // const responseBill = await axios.get('/bill');
+        // setBillList(responseBill.data);
+      } catch (error) {
+        console.error('Error loading:', error);
+      }
+    };
     loadData();
   }, []);
 
   console.log(billList, 'jugggj');
 
-  // Hàm xử lý khi chọn bàn
-  const handleTableClick = (table) => {
-    if (table.status === true) {
-      const selectBill=billList.find(bill=>bill.table_id===table._id)
-      
-      setSelectedTable({...table,bill: selectBill ? selectBill.product_list:[]});
-      setPaymentMethod(''); // Reset phương thức thanh toán khi chọn bàn mới
-    } else {
-      setSelectedTable(null); // Nếu bàn trống, không hiển thị hóa đơn
+  // // Hàm xử lý khi chọn bàn
+  // const handleTableClick = (table) => {
+  //   if (table.status === true) {
+  //     const selectBill = billList.find(bill => bill.table_id.toString() === table._id.toString());
+
+  //     setSelectedTable({...table,bill: selectBill ? selectBill.product_list:[]});
+  //     setPaymentMethod(''); // Reset phương thức thanh toán khi chọn bàn mới
+  //   } else {
+  //     setSelectedTable(null); // Nếu bàn trống, không hiển thị hóa đơn
+  //   }
+  // };
+
+  const handleTableClick = async (table) => {
+    try {
+      if (table.status === false) {
+        // Fetch the bill for the selected table
+        const response = await axios.get(`bill/table/${table._id}`);
+        const selectBill = response.data;
+
+        // Update the selected table and attach the bill details
+        setSelectedTable({ ...table, bill: selectBill ? selectBill.product_list : [] });
+
+        // Reset payment method when selecting a new table
+        setPaymentMethod('');
+      } else {
+        setSelectedTable(null); // If the table is empty, don't show the bill
+      }
+    } catch (error) {
+      console.error('Error fetching bill:', error);
     }
   };
+
   const handleChange = (event) => {
     setPaymentMethod(event.target.value);
   };
@@ -70,18 +91,20 @@ export default function TableList() {
             </div>
 
             {/* Table List */}
+
             <div className="grid grid-cols-5 gap-4 p-4">
-              {tableList.map((table) => (
+              {tableList.map((table, index) => (
                 <div
-                  key={table.tableID}
-                  onClick={() => handleTableClick(table)}
+                  key={table._id}
+                  onClick={() => handleTableClick(table)} // Add click event for table selection
                   className={`bg-white rounded-lg shadow p-4 h-40 w-32 flex flex-col items-center justify-center cursor-pointer ${
-                    table.status === false ? 'bg-red-100' : 'bg-green-100'
+                    table.status === true ? 'bg-green-200' : 'bg-red-200'
                   }`}
                 >
-                  <h3 className="text-center font-bold text-xl">Bàn {table.number_name}</h3>
-                  <p className={`text-xs font-semibold ${table.status === false ? 'text-green-500' : 'text-red-500'}`}>
-                    {table.status === false ? 'Đang trống' : 'Đang có khách'}
+                  <h3 className="text-center font-bold text-xl"> Bàn {index + 1} </h3>
+                  <p className="text-sm">Số ghế: {table.number_of_chair}</p>
+                  <p className={`text-xs font-semibold ${table.status === true ? 'text-green-500' : 'text-red-500'}`}>
+                    {table.status === true ? 'Đang trống' : 'Đang có khách'}
                   </p>
                 </div>
               ))}
@@ -99,6 +122,7 @@ export default function TableList() {
                   <thead>
                     <tr>
                       <th className="border-b py-2">Sản phẩm</th>
+                      <th className="border-b py-2">Hình ảnh</th>
                       <th className="border-b py-2">Giá</th>
                       <th className="border-b py-2">Số lượng</th>
                     </tr>
@@ -106,9 +130,14 @@ export default function TableList() {
                   <tbody>
                     {selectedTable.bill.map((item, index) => (
                       <tr key={index}>
-                        <td className="py-2">{item.item}</td>
-                        <td className="py-2">{item.total_price.toLocaleString()} VND</td>
-                        <td className="py-2">{item.quantity}</td>
+                        <td className="py-2">{item.nameP}</td>
+                        <td className="py-2">
+                          {' '}
+                          <img className='w-12 h-12 border-spacing-1' src={item.imageP} alt={item.namP} />
+                        </td>
+                        <td className="py-2">{item.priceP ? item.priceP.toLocaleString() : '0'} VND</td>
+
+                        <td className="py-2">{item.quantityP}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -116,7 +145,9 @@ export default function TableList() {
                 <div className="flex justify-between items-center mb-4">
                   <span className="text-lg font-semibold">Tổng tiền:</span>
                   <span className="text-lg font-semibold">
-                    {selectedTable.bill.reduce((total, item) => total + item.total_price * item.quantity, 0).toLocaleString()}{' '}
+                    {selectedTable.bill
+                      .reduce((total, item) => total + item.priceP * item.quantityP, 0)
+                      .toLocaleString()}{' '}
                     VND
                   </span>
                 </div>

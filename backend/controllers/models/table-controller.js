@@ -1,9 +1,11 @@
 const TableList = require("../../model/TableList");
+const mongoose = require('mongoose');  // To create an ObjectId
 
 const createNewTable = async (req, res) => {
     try {
         const { number_of_chair, status } = req.body;
-        const newTable = new TableList({ number_of_chair, status });
+        const tId = new mongoose.Types.ObjectId();
+        const newTable = new TableList({ _id: tId, number_of_chair, status });
 
         await newTable.save().then(newDoc => {
             res.status(201).json({

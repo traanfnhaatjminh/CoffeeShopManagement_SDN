@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 const categorySchema = new Schema({
 
+    _id: {
+        type: Schema.Types.ObjectId,  
+    },
+
     group_name: {
         type: String,
         required: true
@@ -10,8 +14,7 @@ const categorySchema = new Schema({
     category_name: {
         type: String,
         required: true
-    },
-    _id: false
+    }
 });
 
 module.exports = mongoose.model('Category', categorySchema);
