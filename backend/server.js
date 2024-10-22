@@ -44,16 +44,16 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 app.get("/", async (req, res, next) => {
-    res.status(StatusCodes.OK).json({ message: "Welcome to Group 5" });
+    res.status(StatusCodes.OK).json({ message: "Welcome to Group 6" });
 });
 
 
 app.use("/categories", CategoryRouter);
 app.use("/products", ProductRouter);
 
-app.use("/bill", BillRouter)
+app.use("/bills", BillRouter);
 app.use("/api/auth", authRouter);
-app.use("/tableList",TableRouter)
+app.use("/tables",TableRouter)
 app.use("/product",ProductRouter)
 
 app.use("/", async (req, res, next) => {

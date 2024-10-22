@@ -6,53 +6,40 @@ import data from '../../data/database.json';
 import axios from 'axios';
 
 export default function TableList() {
-  const [selectedTable, setSelectedTable] = useState(null); // State để lưu bàn được chọn
-  const [paymentMethod, setPaymentMethod] = useState(''); // State để lưu phương thức thanh toán
+  const [selectedTable, setSelectedTable] = useState(null);
+  const [paymentMethod, setPaymentMethod] = useState('');
   const [tableList, setTableList] = useState([]);
   const [billList, setBillList] = useState([]);
+  const [selectBill, setSelectBill] = useState('');
+
+  const loadData = async () => {
+    try {
+      const response = await axios.get('/tables/list');
+      setTableList(response.data);
+      const responseBill = await axios.get('/bills');
+      setBillList(responseBill.data);
+    } catch (error) {
+      console.error('Error loading:', error);
+    }
+  };
 
   useEffect(() => {
-    const loadData = async () => {
-      try {
-        const response = await axios.get('/tableList/list');
-        setTableList(response.data);
-        // const responseBill = await axios.get('/bill');
-        // setBillList(responseBill.data);
-      } catch (error) {
-        console.error('Error loading:', error);
-      }
-    };
     loadData();
   }, []);
 
-  console.log(billList, 'jugggj');
-
-  // // Hàm xử lý khi chọn bàn
-  // const handleTableClick = (table) => {
-  //   if (table.status === true) {
-  //     const selectBill = billList.find(bill => bill.table_id.toString() === table._id.toString());
-
-  //     setSelectedTable({...table,bill: selectBill ? selectBill.product_list:[]});
-  //     setPaymentMethod(''); // Reset phương thức thanh toán khi chọn bàn mới
-  //   } else {
-  //     setSelectedTable(null); // Nếu bàn trống, không hiển thị hóa đơn
-  //   }
-  // };
-
   const handleTableClick = async (table) => {
     try {
-      if (table.status === false) {
-        // Fetch the bill for the selected table
-        const response = await axios.get(`bill/table/${table._id}`);
-        const selectBill = response.data;
-
-        // Update the selected table and attach the bill details
-        setSelectedTable({ ...table, bill: selectBill ? selectBill.product_list : [] });
-
-        // Reset payment method when selecting a new table
+      if (!table.status) {
+        const response = await axios.get(`bills/table/${table._id}`);
+        setSelectBill(response.data);
+        setSelectedTable({ 
+          ...table, 
+          bill: response.data ? response.data.product_list : [] 
+        });
+      
         setPaymentMethod('');
       } else {
-        setSelectedTable(null); // If the table is empty, don't show the bill
+        setSelectedTable(null);
       }
     } catch (error) {
       console.error('Error fetching bill:', error);
@@ -62,6 +49,30 @@ export default function TableList() {
   const handleChange = (event) => {
     setPaymentMethod(event.target.value);
   };
+
+  const handleUpdateBill = async () => {
+    try {
+      if (selectedTable && paymentMethod) {
+        const billUpdateData = {
+          payment: paymentMethod,
+          status: 1,
+          table_id: selectedTable._id,
+        };
+        await axios.put(`/bills/update/${selectBill._id}`, billUpdateData);
+        await loadData();
+        
+        alert('Thanh toán thành công!');
+        setSelectedTable(null);
+        setPaymentMethod('');
+      } else {
+        alert('Vui lòng chọn phương thức thanh toán!');
+      }
+    } catch (error) {
+      console.error('Error updating bill:', error);
+      alert('Có lỗi xảy ra khi thanh toán!');
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <Header />
@@ -117,7 +128,7 @@ export default function TableList() {
 
             {selectedTable ? (
               <div>
-                <h3 className="text-lg font-semibold mb-4">Hóa đơn bàn {selectedTable.tableID}</h3>
+                <h3 className="text-lg font-semibold mb-4">Hóa đơn bàn {selectedTable._id}</h3>
                 <table className="w-full text-left mb-6">
                   <thead>
                     <tr>
@@ -133,7 +144,7 @@ export default function TableList() {
                         <td className="py-2">{item.nameP}</td>
                         <td className="py-2">
                           {' '}
-                          <img className='w-12 h-12 border-spacing-1' src={item.imageP} alt={item.namP} />
+                          <img className="w-12 h-12 border-spacing-1" src={item.imageP} alt={item.namP} />
                         </td>
                         <td className="py-2">{item.priceP ? item.priceP.toLocaleString() : '0'} VND</td>
 
@@ -157,7 +168,7 @@ export default function TableList() {
                   <h4 className="font-semibold mb-2 ">Chọn phương thức thanh toán:</h4>
                   <div className="flex items-center">
                     <input
-                      type="checkbox"
+                      type="radio"
                       id="cash"
                       value="cash"
                       checked={paymentMethod === 'cash'}
@@ -166,7 +177,7 @@ export default function TableList() {
                     />
                     Tiền mặt
                     <input
-                      type="checkbox"
+                      type="radio"
                       id="transfer"
                       value="transfer"
                       checked={paymentMethod === 'transfer'}
@@ -187,7 +198,10 @@ export default function TableList() {
                   </div>
                 )}
 
-                <button className="w-full bg-yellow-500 text-black py-2 px-4 rounded hover:bg-orange-400 font-bold">
+                <button
+                  onClick={handleUpdateBill}
+                  className="w-full bg-yellow-500 text-black py-2 px-4 rounded hover:bg-orange-400 font-bold"
+                >
                   Xác nhận thanh toán
                 </button>
               </div>

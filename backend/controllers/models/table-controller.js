@@ -31,4 +31,18 @@ const getAllTable = async (req, res, next) => {
     }
 };
 
-module.exports = { createNewTable, getAllTable };
+const updateStatus = async (req, res, next) => {
+    try {
+        const { tableId } = req.params;
+        const { status } = req.body;
+
+        // Update the table status
+        await TableList.findByIdAndUpdate(tableId, { status: status });
+
+        res.status(200).json({ message: 'Table status updated successfully.' });
+    } catch (error) {
+        next(error);
+    }
+};
+
+module.exports = { createNewTable, getAllTable, updateStatus };
