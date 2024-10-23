@@ -21,7 +21,7 @@ function WarehouseProduct() {
   const fetchProducts = async (search = '') => {
     setLoading(true);
     try {
-      const response = await axios.get('/products/list');
+      const response = await axios.get('/products/listInWarehouse');
       //filer
       const filteredProducts = response.data.filter(product =>
         product.pname.toLowerCase().includes(search.toLowerCase())

@@ -27,7 +27,7 @@ export default function CashierScreen() {
         const categoriesResponse = await axios.get('/categories/list');
         setCategories(categoriesResponse.data);
 
-        const productsResponse = await axios.get('/products/list');
+        const productsResponse = await axios.get('/products/listInHome');
         setProducts(productsResponse.data);
 
         const tablesResponse = await axios.get('/tables/list');

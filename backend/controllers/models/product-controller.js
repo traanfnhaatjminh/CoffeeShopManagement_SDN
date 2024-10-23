@@ -8,7 +8,7 @@ const createNewProduct = async (req, res, next) => {
         const pId = new mongoose.Types.ObjectId();
         const discount = 0;
         const status = 1;
-        const image = req.file ? `/uploads/${req.file.filename}` : ''; 
+        const image = req.file ? `/uploads/${req.file.filename}` : '';
 
         const newProduct = new Product({ _id: pId, pname, quantity, price, image, category_id, discount, status });
 
@@ -22,7 +22,18 @@ const createNewProduct = async (req, res, next) => {
     }
 };
 
-const getAllProduct = async (req, res, next) => {
+const getAllProductInWarehouse = async (req, res, next) => {
+    try {
+        const products = await Product.find()
+            .populate('category_id')
+            .exec();
+        res.status(200).json(products);
+    } catch (error) {
+        next(error);
+    }
+};
+
+const getAllProductInHome = async (req, res, next) => {
     try {
         const products = await Product.find();
         res.status(200).json(products);
@@ -82,6 +93,8 @@ const getProductsByCategory = async (req, res, next) => {
 // };
 const updateProduct = async (req, res, next) => {
     const { productId } = req.params;
+    console.log(productId);
+
     const { pname, quantity, price, category_id } = req.body;
     const image = req.file ? req.file.filename : undefined;  // không có ảnh mới thì để undefined hihi
 
@@ -121,4 +134,4 @@ const deleteProduct = async (req, res, next) => {
         next(error);
     }
 };
-module.exports = { createNewProduct, getAllProduct, getProductsByCategory, updateProduct, deleteProduct };
+module.exports = { createNewProduct, getAllProductInHome, getAllProductInWarehouse, getProductsByCategory, updateProduct, deleteProduct };
