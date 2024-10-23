@@ -1,7 +1,6 @@
 require("dotenv").config();
 
 const express = require("express");
-const multer = require('multer');
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const httpErrors = require("http-errors");
@@ -13,15 +12,16 @@ const { StatusCodes } = require("http-status-codes");
 const CategoryRouter = require("./router/category.route");
 const ProductRouter = require("./router/product.route");
 const TableRouter = require("./router/tablelist.route");
-const BillRouter = require("./router/bill.route");
 const authRouter = require("./router/auth/auth.routers");
+
+const BillRouter= require("./router/bill.route")
+
+
 const router = require("./router/index");
 
 const HOST = process.env.HOSTNAME;
 const POST = process.env.POST;
 const app = express();
-
-  app.use('/uploads', express.static('uploads'));
 
 app.use(
     cors({
@@ -47,11 +47,14 @@ app.get("/", async (req, res, next) => {
     res.status(StatusCodes.OK).json({ message: "Welcome to Group 6" });
 });
 
+
 app.use("/categories", CategoryRouter);
 app.use("/products", ProductRouter);
-app.use("/tables", TableRouter);
+
 app.use("/bills", BillRouter);
 app.use("/api/auth", authRouter);
+app.use("/tables",TableRouter)
+app.use("/product",ProductRouter)
 
 app.use("/", async (req, res, next) => {
     next(httpErrors.BadRequest("Bad Request"));
