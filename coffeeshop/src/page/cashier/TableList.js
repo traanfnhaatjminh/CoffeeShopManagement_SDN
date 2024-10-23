@@ -4,7 +4,7 @@ import Header from '../../components/common/header';
 import { IoSearch } from 'react-icons/io5';
 import data from '../../data/database.json';
 import axios from 'axios';
-
+import {toast} from "react-toastify"
 export default function TableList() {
   const [selectedTable, setSelectedTable] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState('');
@@ -61,7 +61,7 @@ export default function TableList() {
         await axios.put(`/bills/update/${selectBill._id}`, billUpdateData);
         await loadData();
         
-        alert('Thanh toán thành công!');
+        toast.success('Thanh toán thành công!');
         setSelectedTable(null);
         setPaymentMethod('');
       } else {
