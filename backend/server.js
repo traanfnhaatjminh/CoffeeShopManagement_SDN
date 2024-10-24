@@ -50,6 +50,7 @@ app.use("/bills", BillRouter);
 app.use("/api/auth", authRouter);
 app.use("/tables",TableRouter);
 app.use("/users",UserRouter);
+app.use('/uploads', express.static('uploads'));
 
 app.use("/", async (req, res, next) => {
     next(httpErrors.BadRequest("Bad Request"));
