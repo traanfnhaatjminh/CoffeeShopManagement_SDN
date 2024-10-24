@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-export default function AddProductModal({ closeModal }) {
+export default function AddProductModal({ closeModal, addCategoryToState }) {
   const [formData, setFormData] = useState({
     group_name: '',
     category_name: '',
@@ -19,7 +19,8 @@ export default function AddProductModal({ closeModal }) {
     try {
       const response = await axios.post('http://localhost:3000/categories/createCategory', formData);
       console.log('Category added:', response.data);
-      closeModal(); // Đóng modal sau khi thêm thành công
+      addCategoryToState(response.data); // Update parent component's state
+      closeModal(); // Close modal after successful addition
     } catch (error) {
       console.error('Error adding category:', error);
     }

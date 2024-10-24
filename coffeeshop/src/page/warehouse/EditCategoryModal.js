@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export default function EditProductModal({ category, closeModal }) {
+export default function EditProductModal({ category, closeModal, updateCategoryInState }) {
   const [formData, setFormData] = useState({
     group_name: '',
     category_name: '',
@@ -29,6 +29,7 @@ export default function EditProductModal({ category, closeModal }) {
     try {
       const response = await axios.put(`http://localhost:3000/categories/${category._id}`, formData);
       console.log('Category updated:', response.data);
+      updateCategoryInState(response.data); // Update parent component's state
       closeModal(); // Close modal after successful update
     } catch (error) {
       console.error('Error updating category:', error);
