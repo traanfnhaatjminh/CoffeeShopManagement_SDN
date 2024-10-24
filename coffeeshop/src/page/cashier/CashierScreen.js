@@ -129,17 +129,18 @@ export default function CashierScreen() {
           priceP: item.price,
           quantityP: item.quantity,
           total: item.total
-          
+
         })),
         payment: null,
-        status: 0
+        status: 0,
+        discount: 0
       };// phan nay sua lai 1 chut them cac truong nhu productId: item._id,
       // nameP: item.pname,
       // imageP: item.image,
       // priceP: item.price,
       // quantityP: item.quantity,
- console.log(billData,"billData");
- 
+      console.log(billData, "billData");
+
       const response = await axios.post('/bills/createBill', billData);
       console.log('Bill created successfully:', response.data);
 

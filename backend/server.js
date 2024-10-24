@@ -13,11 +13,8 @@ const CategoryRouter = require("./router/category.route");
 const ProductRouter = require("./router/product.route");
 const TableRouter = require("./router/tablelist.route");
 const authRouter = require("./router/auth/auth.routers");
-
+const UserRouter = require("./router/user.route");
 const BillRouter= require("./router/bill.route")
-
-
-const router = require("./router/index");
 
 const HOST = process.env.HOSTNAME;
 const POST = process.env.POST;
@@ -47,14 +44,12 @@ app.get("/", async (req, res, next) => {
     res.status(StatusCodes.OK).json({ message: "Welcome to Group 6" });
 });
 
-
 app.use("/categories", CategoryRouter);
 app.use("/products", ProductRouter);
-
 app.use("/bills", BillRouter);
 app.use("/api/auth", authRouter);
-app.use("/tables",TableRouter)
-app.use("/product",ProductRouter)
+app.use("/tables",TableRouter);
+app.use("/users",UserRouter);
 
 app.use("/", async (req, res, next) => {
     next(httpErrors.BadRequest("Bad Request"));
